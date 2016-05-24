@@ -38,4 +38,15 @@ public class OrderAmountShould {
     assertThat(amount.asText(), is("nineteen"));
   }
 
+  @Test
+  public void spell20AsTwenty() {
+    OrderAmount amount = new OrderAmount(20);
+    assertThat(amount.asText(), is("twenty"));
+  }
+  
+  @Test
+  public void spell21AsTwentyOne() {
+    OrderAmount amount = new OrderAmount(21);
+    assertThat(amount.asText(), is("twenty one"));
+  }
 }
