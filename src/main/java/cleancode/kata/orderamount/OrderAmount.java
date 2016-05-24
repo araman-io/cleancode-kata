@@ -16,16 +16,32 @@ public class OrderAmount {
   }
 
   public String asText() {
+    String result = "";
     if (amount < 20) {
-      return unitsAndTeenSpellings[amount];
-    } else {
+      result = unitsAndTeenSpellings[amount];
+    }
+
+    if (amount >= 20 && amount < 100) {
       int tenCount = amount / 10;
       if (amount % 10 != 0) {
-        return tensSpellings[tenCount] + " " + unitsAndTeenSpellings[amount - (tenCount * 10)];
+        result = tensSpellings[tenCount] + " " + unitsAndTeenSpellings[amount - (tenCount * 10)];
       } else {
-        return tensSpellings[tenCount];
+        result = tensSpellings[tenCount];
       }
     }
+
+    if (amount >= 100) {
+      int hundredCount = amount / 100;
+      int tenCount = amount / 10;
+      if (amount % 100 != 0) {
+        result = unitsAndTeenSpellings[hundredCount] + " " + "hundred" + " "
+            + tensSpellings[tenCount] + " " + unitsAndTeenSpellings[amount - (tenCount * 10)];
+      } else {
+        result = unitsAndTeenSpellings[hundredCount] + " hundred";
+      }
+    }
+
+    return result;
   }
 
 }
