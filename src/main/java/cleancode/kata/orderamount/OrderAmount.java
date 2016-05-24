@@ -1,13 +1,15 @@
 package cleancode.kata.orderamount;
 
+import static java.lang.String.format;
+
+import java.util.List;
+
+import static java.util.Arrays.asList;
+
 public class OrderAmount {
 
-  private String[] unitsAndTeenSpellings = {"", "one", "two", "three", "four", "five", "six",
-      "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-      "sixteen", "seventeen", "eighteen", "nineteen"};
-
-  private String[] tensSpellings =
-      {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+  List<Speller> spellers =
+      asList(new HundredSpeller(), new TensSpeller(), new UnitAndTeensSpeller());
 
   private int amount;
 
@@ -17,28 +19,18 @@ public class OrderAmount {
 
   public String asText() {
     String result = "";
-    if (amount < 20) {
-      result = unitsAndTeenSpellings[amount];
-    }
+    int amountToSpell = amount;
 
-    if (amount >= 20 && amount < 100) {
-      int tenCount = amount / 10;
-      if (amount % 10 != 0) {
-        result = tensSpellings[tenCount] + " " + unitsAndTeenSpellings[amount - (tenCount * 10)];
-      } else {
-        result = tensSpellings[tenCount];
-      }
-    }
+    for (Speller s : spellers) {
+      int quantum = amountToSpell / s.placeValue();
+      String fragment = s.spell(quantum);
 
-    if (amount >= 100) {
-      int hundredCount = amount / 100;
-      int tenCount = amount / 10;
-      if (amount % 100 != 0) {
-        result = unitsAndTeenSpellings[hundredCount] + " " + "hundred" + " "
-            + tensSpellings[tenCount] + " " + unitsAndTeenSpellings[amount - (tenCount * 10)];
-      } else {
-        result = unitsAndTeenSpellings[hundredCount] + " hundred";
+      if (!fragment.isEmpty()) {
+        result = result.isEmpty() ? fragment : format("%s %s", result, fragment);
       }
+
+      amountToSpell = amountToSpell - (quantum * s.placeValue());
+
     }
 
     return result;
