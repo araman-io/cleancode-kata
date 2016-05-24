@@ -1,6 +1,8 @@
 package cleancode.kata.orderamount;
 
 public class OrderAmount {
+  
+  private String[] units = {"", "one", "two"};
 
   private int amount;
 
@@ -9,11 +11,7 @@ public class OrderAmount {
   }
 
   public String asText() {
-    if ( amount == 1 ) {
-    return "one";
-    } else {
-      return "two";
-    }
+    return units[amount];
   }
 
 }
