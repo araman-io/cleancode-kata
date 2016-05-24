@@ -13,5 +13,11 @@ public class OrderAmountShould {
     OrderAmount amount = new OrderAmount(1);
     assertThat(amount.asText(), is("one"));
   }
+  
+  @Test
+  public void spellTwoAsTwo() {
+    OrderAmount amount = new OrderAmount(2);
+    assertThat(amount.asText(), is("two"));
+  }
 
 }

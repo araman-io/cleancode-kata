@@ -9,7 +9,11 @@ public class OrderAmount {
   }
 
   public String asText() {
-    return null;
+    if ( amount == 1 ) {
+    return "one";
+    } else {
+      return "two";
+    }
   }
 
 }
