@@ -29,6 +29,7 @@ public class OrderAmount {
         result = result.isEmpty() ? fragment : format("%s %s", result, fragment);
       }
 
+      //dont like this since we know the internal secret of tensspeller
       if (!(s instanceof TensSpeller)) {
         amountToSpell = amountToSpell - (quantum * s.placeValue());
       }
