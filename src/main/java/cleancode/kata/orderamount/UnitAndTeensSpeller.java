@@ -1,6 +1,6 @@
 package cleancode.kata.orderamount;
 
-public class UnitAndTeensSpeller implements Speller {
+public class UnitAndTeensSpeller implements SpellChain {
 
   private String[] unitTeenSpellings = {"", "one", "two", "three", "four", "five", "six", "seven",
       "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",

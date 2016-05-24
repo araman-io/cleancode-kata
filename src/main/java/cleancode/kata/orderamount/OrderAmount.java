@@ -8,7 +8,7 @@ import static java.util.Arrays.asList;
 
 public class OrderAmount {
 
-  List<Speller> spellers =
+  List<SpellChain> spellers =
       asList(new HundredSpeller(), new TensSpeller(), new UnitAndTeensSpeller());
 
   private int amount;
@@ -21,7 +21,7 @@ public class OrderAmount {
     String result = "";
     int amountToSpell = amount;
 
-    for (Speller s : spellers) {
+    for (SpellChain s : spellers) {
       int quantum = amountToSpell / s.placeValue();
       String fragment = s.spell(quantum);
 
@@ -29,7 +29,9 @@ public class OrderAmount {
         result = result.isEmpty() ? fragment : format("%s %s", result, fragment);
       }
 
-      amountToSpell = amountToSpell - (quantum * s.placeValue());
+      if (!(s instanceof TensSpeller)) {
+        amountToSpell = amountToSpell - (quantum * s.placeValue());
+      }
 
     }
 

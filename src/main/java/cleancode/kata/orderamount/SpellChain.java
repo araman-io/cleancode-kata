@@ -1,6 +1,6 @@
 package cleancode.kata.orderamount;
 
-public interface Speller {
+public interface SpellChain {
   
   public String spell(int number);
 

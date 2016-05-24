@@ -1,6 +1,6 @@
 package cleancode.kata.orderamount;
 
-public class HundredSpeller implements Speller {
+public class HundredSpeller implements SpellChain {
 
   private String[] hundredSpellings =
       {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
