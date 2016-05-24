@@ -9,15 +9,21 @@ import static org.junit.Assert.assertThat;
 public class OrderAmountShould {
   
   @Test
-  public void spellOneAsOne() {
+  public void spell1AsOne() {
     OrderAmount amount = new OrderAmount(1);
     assertThat(amount.asText(), is("one"));
   }
   
   @Test
-  public void spellTwoAsTwo() {
+  public void spell2AsTwo() {
     OrderAmount amount = new OrderAmount(2);
     assertThat(amount.asText(), is("two"));
+  }
+  
+  @Test
+  public void spell9AsNine() {
+    OrderAmount amount = new OrderAmount(9);
+    assertThat(amount.asText(), is("nine"));
   }
 
 }

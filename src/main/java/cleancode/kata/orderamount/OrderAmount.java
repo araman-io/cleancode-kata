@@ -1,8 +1,9 @@
 package cleancode.kata.orderamount;
 
 public class OrderAmount {
-  
-  private String[] units = {"", "one", "two"};
+
+  private String[] units =
+      {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
   private int amount;
 
