@@ -49,4 +49,30 @@ public class OrderAmountShould {
     OrderAmount amount = new OrderAmount(21);
     assertThat(amount.asText(), is("twenty one"));
   }
+  
+  @Test
+  public void spell29AsTwentyNine() {
+    OrderAmount amount = new OrderAmount(29);
+    assertThat(amount.asText(), is("twenty nine"));
+  }
+  
+  @Test
+  public void spell45AsFortyFive() {
+    OrderAmount amount = new OrderAmount(45);
+    assertThat(amount.asText(), is("forty five"));
+  }
+  
+  @Test
+  public void spell69AsSixtyNine() {
+    OrderAmount amount = new OrderAmount(69);
+    assertThat(amount.asText(), is("sixty nine"));
+  }
+  
+  @Test
+  public void spell98AsNinetyEight() {
+    OrderAmount amount = new OrderAmount(98);
+    assertThat(amount.asText(), is("ninety eight"));
+  }
+
+
 }

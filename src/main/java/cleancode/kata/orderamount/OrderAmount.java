@@ -6,6 +6,9 @@ public class OrderAmount {
       "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
       "eighteen", "nineteen", "twenty"};
 
+  private String[] tens =
+      {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+
   private int amount;
 
   public OrderAmount(int amount) {
@@ -17,7 +20,7 @@ public class OrderAmount {
       return units[amount];
     } else {
       int tenCount = amount / 10;
-      return units[tenCount * 10] + " " + units[amount - (tenCount * 10)];
+      return tens[tenCount] + " " + units[amount - (tenCount * 10)];
     }
   }
 
