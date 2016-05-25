@@ -23,7 +23,7 @@ public class ReadClockIn24Hour {
     return clock.minute() == 00 ? "hundred" : readDigits(minute);
   }
 
-  protected String readDigits(int digits) {
+  private String readDigits(int digits) {
     String result;
     if (digits < 10) {
       result = unitsAndTeens[0] + " " + unitsAndTeens[digits];
