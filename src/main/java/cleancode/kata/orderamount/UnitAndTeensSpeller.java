@@ -1,6 +1,6 @@
 package cleancode.kata.orderamount;
 
-public class UnitAndTeensSpeller implements Speller {
+public class UnitAndTeensSpeller extends AbstractSpeller implements Speller {
 
   private String[] unitTeenSpellings = {"", "one", "two", "three", "four", "five", "six", "seven",
       "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
@@ -9,6 +9,16 @@ public class UnitAndTeensSpeller implements Speller {
   @Override
   public String spell(int number) {
     return (number < 20) ? unitTeenSpellings[number] : this.spell(number % 10);
+  }
+
+  @Override
+  protected int getPlaceValue() {
+    return 1;
+  }
+
+  @Override
+  protected Speller nextSpeller() {
+    return null;
   }
 
 }

@@ -24,6 +24,12 @@ public class TensSpellerShould {
   public void spell45AsFortyFive() {
     assertThat(speller.spell(45), is("forty five"));
   }
+  
+  @Test
+  public void spell19AsNineteen() {
+    assertThat(speller.spell(19), is("nineteen"));
+  }
+
 
 
 }

@@ -1,6 +1,6 @@
 package cleancode.kata.orderamount;
 
-public class TensSpeller implements Speller {
+public class TensSpeller extends AbstractSpeller implements Speller {
 
   private static final UnitAndTeensSpeller NEXT_SPELLER = new UnitAndTeensSpeller();
 
@@ -13,33 +13,21 @@ public class TensSpeller implements Speller {
     String nextFragment = "";
     int quantum = getQuantum(number);
     thisFragment = (quantum > 1) ? tensSpellings[quantum] : "";
-    nextFragment = next(number, quantum);
+    nextFragment = spellNext(number, quantum);
     return mergeFragments(thisFragment, nextFragment);
   }
 
-  protected String next(int number, int quantum) {
-    String nextFragment = NEXT_SPELLER.spell(number - (quantum * getPlaceValue()));
-    return nextFragment;
-  }
-
-  protected int getQuantum(int number) {
-    int quantum = number / getPlaceValue();
-    return quantum;
+  protected Speller nextSpeller() {
+    return NEXT_SPELLER;
   }
 
   protected int getPlaceValue() {
     return 10;
   }
 
-  protected String mergeFragments(String first, String second) {
-    String merged = "";
-    if (first.isEmpty()) {
-      merged = second.isEmpty() ? "" : second;
-    }
-    if (!first.isEmpty()) {
-      merged = second.isEmpty() ? first : String.format("%s %s", first, second);
-    }
-    return merged;
+  @Override
+  protected int nextPart(int number, int quantum) {
+    return number;
   }
 
 }
