@@ -2,7 +2,7 @@ package cleancode.kata.orderamount;
 
 public class OrderAmount {
 
-  private static final Speller HEAD = new HundredSpeller();
+  private static final Speller HEAD = new ThousandsSpeller();
 
   private int amount;
 

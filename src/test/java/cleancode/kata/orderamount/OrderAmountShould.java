@@ -80,4 +80,16 @@ public class OrderAmountShould {
     assertThat(amount.asText(), is("one hundred"));
   }
 
+  @Test
+  public void spell1000() {
+    OrderAmount amount = new OrderAmount(1000);
+    assertThat(amount.asText(), is("one thousand"));
+  }
+
+  @Test
+  public void spell19000() {
+    OrderAmount amount = new OrderAmount(19000);
+    assertThat(amount.asText(), is("nineteen thousand"));
+  }
+
 }
