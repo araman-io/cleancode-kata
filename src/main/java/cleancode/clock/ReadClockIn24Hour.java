@@ -4,9 +4,9 @@ public class ReadClockIn24Hour {
 
   private Clock clock;
 
-  String[] hours = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
-      "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
-      "eigtheen", "nineteen", "twenty", "twenty one", "twenty two", "twenty three"};
+  String[] unitsAndTeens = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+      "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
+      "eigtheen", "nineteen"};
 
   String[] teens = {"", "ten", "twenty", "thirty", "forty", "fifty"};
 
@@ -33,11 +33,11 @@ public class ReadClockIn24Hour {
   protected String readDigits(int digits) {
     String result;
     if (digits < 10) {
-      result = hours[0] + " " + hours[digits];
+      result = unitsAndTeens[0] + " " + unitsAndTeens[digits];
     } else if (digits >= 10 && digits < 20) {
-      result = hours[digits];
+      result = unitsAndTeens[digits];
     } else {
-      result = teens[digits / 10] + " " + hours[digits % 10];
+      result = teens[digits / 10] + " " + unitsAndTeens[digits % 10];
     }
     return result;
   }
