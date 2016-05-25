@@ -21,20 +21,24 @@ public class ReadClockIn24Hour {
       return "midnight";
     }
 
-    if (clock.hour() < 10) {
-      result = hours[0] + " " + hours[clock.hour()];
-    } else {
-      result = hours[clock.hour()];
-    }
+    result = readDigits(clock.hour()) + " " + readMinutes(clock.minute());
 
-    if (clock.minute() == 00) {
-      result += " hundred";
-    } else if (clock.minute() > 0 && clock.minute() < 20) {
-      result = result + " " + hours[clock.minute()];
-    } else {
-      result = result + " " + teens[clock.minute() / 10] + " " + hours[clock.minute() % 10];
-    }
+    return result;
+  }
 
+  private String readMinutes(int minute) {
+    return clock.minute() == 00 ? "hundred" : readDigits(minute);
+  }
+
+  protected String readDigits(int digits) {
+    String result;
+    if (digits < 10) {
+      result = hours[0] + " " + hours[digits];
+    } else if (digits >= 10 && digits < 20) {
+      result = hours[digits];
+    } else {
+      result = teens[digits / 10] + " " + hours[digits % 10];
+    }
     return result;
   }
 
