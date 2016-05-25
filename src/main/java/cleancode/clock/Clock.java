@@ -24,6 +24,10 @@ public class Clock {
     return time.getMinute();
   }
 
+  public boolean isMidnight() {
+    return (hour() == 00 && minute() == 0) ? true : false;
+  }
+
   @Override
   public String toString() {
     return "Clock [time=" + time + "]";
