@@ -1,10 +1,12 @@
-package cleancode.kata.orderamount;
+package cleancode.kata.orderamount.speller;
 
 import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
+
+import cleancode.kata.orderamount.speller.TensAndUnitsSpeller;
 
 public class TensSpellerShould {
   

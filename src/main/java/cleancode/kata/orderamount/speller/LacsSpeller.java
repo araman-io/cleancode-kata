@@ -1,4 +1,4 @@
-package cleancode.kata.orderamount;
+package cleancode.kata.orderamount.speller;
 
 public class LacsSpeller extends ThousandsSpeller {
 

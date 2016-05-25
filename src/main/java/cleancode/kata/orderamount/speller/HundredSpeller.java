@@ -1,4 +1,4 @@
-package cleancode.kata.orderamount;
+package cleancode.kata.orderamount.speller;
 
 import static java.lang.String.format;
 
