@@ -1,8 +1,19 @@
 package cleancode.kata.orderamount;
 
 public abstract class AbstractSpeller implements Speller {
+  
+  public String spell(int number) {
+    String thisFragment = "";
+    String nextFragment = "";
+    thisFragment = spellThisFragment(number);
+    nextFragment = spellNextFragment(number);
+    return mergeFragments(thisFragment, nextFragment);
+  }
 
-  protected String spellNext(int number, int quantum) {
+  protected abstract String spellThisFragment(int number);
+
+  protected String spellNextFragment(int number) {
+    int quantum = getQuantum(number);
     return (nextSpeller() != null) ? nextSpeller().spell(nextPart(number, quantum)) : "";
   }
 

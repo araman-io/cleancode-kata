@@ -8,13 +8,9 @@ public class HundredSpeller extends AbstractSpeller implements Speller {
       {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
 
-  public String spell(int number) {
-    String thisFragment = "";
-    String nextFragment = "";
+  protected String spellThisFragment(int number) {
     int quantum = getQuantum(number);
-    thisFragment = (quantum > 0) ? format("%s hundred", hundredSpellings[quantum]) : "";
-    nextFragment = spellNext(number, quantum);
-    return mergeFragments(thisFragment, nextFragment);
+    return (quantum > 0) ? format("%s hundred", hundredSpellings[quantum]) : "";
   }
 
   @Override

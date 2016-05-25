@@ -8,13 +8,9 @@ public class TensSpeller extends AbstractSpeller implements Speller {
       {"", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
 
   @Override
-  public String spell(int number) {
-    String thisFragment = "";
-    String nextFragment = "";
-    int quantum = getQuantum(number);
-    thisFragment = (quantum > 1) ? tensSpellings[quantum] : "";
-    nextFragment = spellNext(number, quantum);
-    return mergeFragments(thisFragment, nextFragment);
+  protected String spellThisFragment(int number) {
+    int quantum = number / getPlaceValue();
+    return (quantum > 1) ? tensSpellings[quantum] : "";
   }
 
   protected Speller nextSpeller() {
@@ -29,5 +25,6 @@ public class TensSpeller extends AbstractSpeller implements Speller {
   protected int nextPart(int number, int quantum) {
     return number;
   }
+
 
 }

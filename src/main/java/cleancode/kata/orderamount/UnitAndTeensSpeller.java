@@ -7,7 +7,7 @@ public class UnitAndTeensSpeller extends AbstractSpeller implements Speller {
       "seventeen", "eighteen", "nineteen"};
 
   @Override
-  public String spell(int number) {
+  protected String spellThisFragment(int number) {
     return (number < 20) ? unitTeenSpellings[number] : this.spell(number % 10);
   }
 
