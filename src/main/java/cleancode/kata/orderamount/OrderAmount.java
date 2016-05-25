@@ -33,12 +33,7 @@ public class OrderAmount {
     if (amount >= 100) {
       int hundredCount = amount / 100;
       int tenCount = amount / 10;
-      if (amount % 100 != 0) {
-        result = unitsAndTeenSpellings[hundredCount] + " " + "hundred" + " "
-            + tensSpellings[tenCount] + " " + unitsAndTeenSpellings[amount - (tenCount * 10)];
-      } else {
-        result = unitsAndTeenSpellings[hundredCount] + " hundred";
-      }
+      result = unitsAndTeenSpellings[hundredCount] + " hundred";
     }
 
     return result;
