@@ -103,5 +103,12 @@ public class OrderAmountShould {
     OrderAmount amount = new OrderAmount(99717);
     assertThat(amount.asText(), is("ninety nine thousand seven hundred seventeen"));
   }
+  
+  @Test
+  public void spell7489654() {
+    OrderAmount amount = new OrderAmount(7489654);
+    assertThat(amount.asText(), is("seventy four lacs eighty nine thousand six hundred fifty four"));
+  }
+
 
 }
