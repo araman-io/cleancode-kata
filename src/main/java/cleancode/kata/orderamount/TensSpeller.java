@@ -2,15 +2,22 @@ package cleancode.kata.orderamount;
 
 public class TensSpeller extends AbstractSpeller implements Speller {
 
-  private static final UnitAndTeensSpeller NEXT_SPELLER = new UnitAndTeensSpeller();
+  private String[] unitTeenSpellings = {"", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+      "sixteen", "seventeen", "eighteen", "nineteen"};
+
+  private static final UnitSpeller NEXT_SPELLER = new UnitSpeller();
 
   private String[] tensSpellings =
       {"", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
 
   @Override
   protected String spellThisFragment(int number) {
-    int quantum = number / getPlaceValue();
-    return (quantum > 1) ? tensSpellings[quantum] : "";
+    if (number > 10 && number < 20) {
+      return unitTeenSpellings[number - 10];
+    } else {
+      int quantum = number / getPlaceValue();
+      return (quantum > 0) ? tensSpellings[quantum] : "";
+    }
   }
 
   protected Speller nextSpeller() {
@@ -23,7 +30,11 @@ public class TensSpeller extends AbstractSpeller implements Speller {
 
   @Override
   protected int nextPart(int number, int quantum) {
-    return number;
+    if (number > 10 && number < 20) {
+      return 0;
+    } else {
+      return super.nextPart(number, quantum);
+    }
   }
 
 
