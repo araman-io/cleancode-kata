@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 public class TensSpellerShould {
   
-  TensSpeller speller = new TensSpeller();
+  TensAndUnitsSpeller speller = new TensAndUnitsSpeller();
   
   @Test
   public void spell20AsTwenty() {

@@ -20,7 +20,7 @@ public class HundredSpeller extends AbstractSpeller implements Speller {
 
   @Override
   protected Speller nextSpeller() {
-    return new TensSpeller();
+    return new TensAndUnitsSpeller();
   }
 
 }
