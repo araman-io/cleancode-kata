@@ -15,15 +15,8 @@ public class ReadClockIn24Hour {
   }
 
   public String read() {
-    String result = "";
-
-    if (clock.isMidnight()) {
-      return "midnight";
-    }
-
-    result = readDigits(clock.hour()) + " " + readMinutes(clock.minute());
-
-    return result;
+    return clock.isMidnight() ? "midnight"
+        : readDigits(clock.hour()) + " " + readMinutes(clock.minute());
   }
 
   private String readMinutes(int minute) {
