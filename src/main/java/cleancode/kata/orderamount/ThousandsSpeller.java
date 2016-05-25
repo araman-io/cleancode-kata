@@ -8,7 +8,7 @@ public class ThousandsSpeller extends TensAndUnitsSpeller {
   protected String spellThisFragment(int number) {
     int quantum = number / getPlaceValue();
     String result = super.spellThisFragment(quantum);
-    return result.isEmpty() ? "" : result + " thousand";
+    return result.isEmpty() ? "" : result + " " + getDenomination();
   }
 
   @Override
@@ -21,9 +21,9 @@ public class ThousandsSpeller extends TensAndUnitsSpeller {
     return 1000;
   }
 
-  @Override
-  protected int nextPart(int number, int quantum) {
-    return number - (quantum * getPlaceValue());
+  protected String getDenomination() {
+    return "thousand";
   }
+
 
 }
