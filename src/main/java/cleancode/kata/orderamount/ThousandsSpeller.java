@@ -8,6 +8,9 @@ public class ThousandsSpeller extends AbstractSpeller {
   private String[] teenSpellings = {"", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
       "sixteen", "seventeen", "eighteen", "nineteen"};
 
+  private String[] tensSpellings =
+      {"", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+
   private static final Speller HUNDREDS_SPELLER = new HundredSpeller();
 
   @Override
@@ -18,6 +21,8 @@ public class ThousandsSpeller extends AbstractSpeller {
       result = unitSpellings[quantum];
     } else if (quantum > 10 && quantum < 20) {
       result = teenSpellings[quantum - 10];
+    } else if (quantum >= 20 && quantum < 100) {
+      result = tensSpellings[quantum/10] + " " + unitSpellings[quantum % 10];
     }
     return result.isEmpty() ? "" : result + " thousand";
   }
