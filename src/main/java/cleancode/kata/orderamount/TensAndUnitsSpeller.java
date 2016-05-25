@@ -11,21 +11,18 @@ public class TensAndUnitsSpeller extends AbstractSpeller implements Speller {
 
   @Override
   protected String spellThisFragment(int number) {
-    int quantum = number / getPlaceValue();
     String result = "";
 
     if (number > 0 && number < 20) {
       result = unitTeenSpellings[number];
-    }
-
-    if (quantum > 1 && quantum < 100) {
-      if (number % getPlaceValue() == 0) {
-        result = tensSpellings[quantum];
+    } else if (number >= 20 && number < 100) {
+      if (number % 10 == 0) {
+        result = tensSpellings[number / 10];
       } else {
-        result = tensSpellings[quantum] + " " + unitTeenSpellings[ number - (quantum * getPlaceValue())];
+        result = tensSpellings[number / 10] + " " + unitTeenSpellings[number % 10];
       }
     }
-      
+
     return result;
   }
 
