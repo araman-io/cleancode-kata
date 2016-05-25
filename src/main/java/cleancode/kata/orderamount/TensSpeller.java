@@ -8,7 +8,11 @@ public class TensSpeller implements Speller {
   @Override
   public String spell(int number) {
     int quantum = number / 10;
-    return (quantum > 1) ? tensSpellings[quantum] : "";
+    String result = "";
+    result = (quantum > 1) ? tensSpellings[quantum] : "";
+    String nextFragment = new UnitAndTeensSpeller().spell(number - (quantum * 10));
+    result += nextFragment.isEmpty() ? "" : String.format(" %s",nextFragment);
+    return result;
   }
 
 }
