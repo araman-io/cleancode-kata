@@ -1,4 +1,4 @@
-package cleancode.clock;
+package cleancode.kata.clock;
 
 import static java.time.ZonedDateTime.now;
 

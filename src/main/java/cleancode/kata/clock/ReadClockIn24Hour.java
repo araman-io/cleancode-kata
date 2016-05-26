@@ -1,4 +1,4 @@
-package cleancode.clock;
+package cleancode.kata.clock;
 
 public class ReadClockIn24Hour {
 

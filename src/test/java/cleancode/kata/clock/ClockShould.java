@@ -1,4 +1,4 @@
-package cleancode.clock;
+package cleancode.kata.clock;
 
 import static java.time.ZonedDateTime.now;
 import static org.hamcrest.CoreMatchers.is;
@@ -8,6 +8,8 @@ import java.time.ZonedDateTime;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
+
+import cleancode.kata.clock.Clock;
 
 public class ClockShould {
 
