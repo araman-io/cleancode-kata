@@ -1,11 +1,8 @@
 package cleancode.kata.orderamount;
 
-import cleancode.kata.orderamount.speller.LacsSpeller;
-import cleancode.kata.orderamount.speller.Speller;
+import static cleancode.kata.orderamount.speller.IndianSpellingConvention.INSTANCE;
 
 public class OrderAmount {
-
-  private static final Speller HEAD = new LacsSpeller();
 
   private int amount;
 
@@ -14,7 +11,7 @@ public class OrderAmount {
   }
 
   public String asText() {
-    String result = HEAD.spell(amount);
+    String result = INSTANCE.spell(amount);
     return result;
   }
 
