@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toMap;
 public class Checkout {
 
   private List<Sku> skus = new ArrayList<>();
-  private Map<Sku, GetXForYPromotion> promotionsBySku = new HashMap<>();
+  private Map<Sku, Promotion> promotionsBySku = new HashMap<>();
 
   public Checkout() {
     super();
@@ -52,17 +52,15 @@ public class Checkout {
     }
 
     totalPrice = skuCount.entrySet().stream().mapToInt(entrySet -> {
-      int promotionPrice = 0;
-      GetXForYPromotion promotion = promotionsBySku.get(entrySet.getKey());
-      if (promotion != null && promotion.thresholdCount() == entrySet.getValue()) {
-        promotionPrice = promotion.offerPrice();
-      } else {
-        promotionPrice = entrySet.getValue() * entrySet.getKey().unitPrice();
-      }
-      return promotionPrice;
+      Promotion promotion = promotionFor(entrySet.getKey());
+      return promotion.evaluateTotal(entrySet.getValue());
     }).sum();
 
     return totalPrice;
+  }
+
+  private Promotion promotionFor(Sku sku) {
+    return promotionsBySku.getOrDefault(sku, new NullPromotion(sku));
   }
 
 }

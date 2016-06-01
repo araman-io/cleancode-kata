@@ -1,9 +1,17 @@
 package cleancode.kata.checkout;
 
-public class NullPromotion extends GetXForYPromotion {
+public class NullPromotion implements Promotion {
 
-  public NullPromotion(Sku sku, int count, int offerPrice) {
-    super(sku, count, offerPrice);
+  private Sku sku;
+  
+  public NullPromotion(Sku sku) {
+    this.sku = sku;
   }
+
+  @Override
+  public int evaluateTotal(int skuCount) {
+    return sku.unitPrice() * skuCount;
+  }
+
 
 }
