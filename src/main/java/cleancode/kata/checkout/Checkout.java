@@ -2,11 +2,14 @@ package cleancode.kata.checkout;
 
 public class Checkout {
 
+  private String product;
+
   public void scan(String product) {
+    this.product = product;
   }
 
   public int total() {
-    return 50;
+    return product.equals("A") ? 50 : 30;
   }
 
 }
