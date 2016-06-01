@@ -13,8 +13,8 @@ import static java.util.stream.Collectors.toMap;
 
 public class Checkout {
 
-  private List<Sku> products = new ArrayList<>();
-  private Map<Sku, Promotion> configuredPromotions = new HashMap<>();
+  private List<Sku> skus = new ArrayList<>();
+  private Map<Sku, Promotion> promotionsBySku = new HashMap<>();
 
   public Checkout() {
     super();
@@ -25,7 +25,7 @@ public class Checkout {
   }
 
   public Checkout(List<Promotion> promotions) {
-    configuredPromotions = promotions.stream().collect(toMap(Promotion::sku, identity()));
+    this.promotionsBySku = promotions.stream().collect(toMap(Promotion::sku, identity()));
   }
 
   public void scan(String product) {
@@ -33,31 +33,31 @@ public class Checkout {
   }
 
   public void scan(Sku product) {
-    products.add(product);
+    skus.add(product);
   }
 
   public void scan(Sku... skus) {
     asList(skus).forEach(sku -> {
-      products.add(sku);
+      this.skus.add(sku);
     });
   }
 
   public int total() {
     int totalPrice = 0;
 
-    Map<Sku, Integer> productCount = new HashMap<>();
-    for (Sku product : products) {
-      Integer existingCount = productCount.getOrDefault(product, 0);
-      productCount.put(product, existingCount + 1);
+    Map<Sku, Integer> skuCount = new HashMap<>();
+    for (Sku sku : skus) {
+      Integer existingCount = skuCount.getOrDefault(sku, 0);
+      skuCount.put(sku, existingCount + 1);
     }
 
-    totalPrice = productCount.entrySet().stream().mapToInt(p -> {
+    totalPrice = skuCount.entrySet().stream().mapToInt(entrySet -> {
       int promotionPrice = 0;
-      Promotion promotion = configuredPromotions.get(p.getKey());
-      if (promotion != null && p.getValue() == promotion.thresholdCount()) {
+      Promotion promotion = promotionsBySku.get(entrySet.getKey());
+      if (promotion != null && promotion.thresholdCount() == entrySet.getValue()) {
         promotionPrice = promotion.offerPrice();
       } else {
-        promotionPrice = p.getValue() * p.getKey().unitPrice();
+        promotionPrice = entrySet.getValue() * entrySet.getKey().unitPrice();
       }
       return promotionPrice;
     }).sum();
