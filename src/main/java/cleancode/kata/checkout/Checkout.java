@@ -11,6 +11,9 @@ import static java.util.Arrays.asList;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
+import cleancode.kata.checkout.promotion.NullPromotion;
+import cleancode.kata.checkout.promotion.Promotion;
+
 public class Checkout {
 
   private List<Sku> skus = new ArrayList<>();

@@ -1,10 +1,14 @@
-package cleancode.kata.checkout;
+package cleancode.kata.checkout.promotion;
 
 import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
+
+import cleancode.kata.checkout.Sku;
+import cleancode.kata.checkout.promotion.GetXForYPromotion;
+import cleancode.kata.checkout.promotion.Promotion;
 
 public class GetXForYPromotionShould {
   

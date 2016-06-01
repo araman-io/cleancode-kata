@@ -12,6 +12,8 @@ import static java.util.Arrays.asList;
 
 import static org.junit.Assert.assertThat;
 
+import cleancode.kata.checkout.promotion.GetXForYPromotion;
+
 public class CheckoutShould {
 
   @Test

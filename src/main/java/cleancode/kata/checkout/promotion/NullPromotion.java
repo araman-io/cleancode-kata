@@ -1,4 +1,6 @@
-package cleancode.kata.checkout;
+package cleancode.kata.checkout.promotion;
+
+import cleancode.kata.checkout.Sku;
 
 public class NullPromotion implements Promotion {
 
