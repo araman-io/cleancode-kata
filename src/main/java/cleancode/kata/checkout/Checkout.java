@@ -17,8 +17,8 @@ public class Checkout {
     super();
   }
 
-  public Checkout(Sku promotedSku, Promotion promotion) {
-    this.promotedSku = promotedSku;
+  public Checkout(Promotion promotion) {
+    this.promotedSku = promotion.sku();
     this.promotion = promotion;
   }
 
@@ -49,7 +49,7 @@ public class Checkout {
           }) //
           .count();
       if (countOfPromotedSku == promotion.thresholdCount()) {
-        totalPrice = promotion.getOfferPrice();
+        totalPrice = promotion.offerPrice();
       }
     }
 

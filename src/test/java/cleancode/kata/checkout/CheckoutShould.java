@@ -46,16 +46,22 @@ public class CheckoutShould {
 
   @Test
   public void price_3A_with_3aFor130_promo_as130() throws Exception {
-    Checkout checkout = new Checkout(A, new Promotion(3, 130));
+    Checkout checkout = new Checkout(new Promotion(A, 3, 130));
     checkout.scan(A, A, A);
     assertThat(checkout.total(), is(130));
   }
 
   @Test
   public void price_3A_1B_with_3aFor130_promo_as160() throws Exception {
-    Checkout checkout = new Checkout(A, new Promotion(3, 130));
+    Checkout checkout = new Checkout(new Promotion(A, 3, 130));
     checkout.scan(A, A, A, B);
     assertThat(checkout.total(), is(160));
   }
 
+  @Test
+  public void price_3A_2B_with_3aFor130_2Bfor45_promo_as175() throws Exception {
+    Checkout checkout = new Checkout(new Promotion(A, 3, 130));
+    checkout.scan(A, A, A, B, B);
+    assertThat(checkout.total(), is(175));
+  }
 }
