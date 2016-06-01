@@ -2,6 +2,7 @@ package cleancode.kata.checkout;
 
 import static cleancode.kata.checkout.Sku.A;
 import static cleancode.kata.checkout.Sku.B;
+import static cleancode.kata.checkout.Sku.C;
 import static cleancode.kata.checkout.Sku.D;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -67,4 +68,13 @@ public class CheckoutShould {
     checkout.scan(A, A, A, B, B);
     assertThat(checkout.total(), is(175));
   }
+
+  @Test
+  public void price_4A_2B_1C_with_3aFor130_2Bfor45_promo_as175() throws Exception {
+    Checkout checkout = new Checkout(asList(new GetXForYPromotion(A, 3, 130), 
+        new GetXForYPromotion(B, 2, 45)));
+    checkout.scan(A, B, A, B, A, C, A);
+    assertThat(checkout.total(), is(245));
+  }
+
 }
