@@ -20,12 +20,12 @@ public class Checkout {
     super();
   }
 
-  public Checkout(GetXForYPromotion promotion) {
+  public Checkout(Promotion promotion) {
     this(asList(promotion));
   }
 
-  public Checkout(List<GetXForYPromotion> promotions) {
-    this.promotionsBySku = promotions.stream().collect(toMap(GetXForYPromotion::sku, identity()));
+  public Checkout(List<Promotion> promotions) {
+    this.promotionsBySku = promotions.stream().collect(toMap(Promotion::sku, identity()));
   }
 
   public void scan(String product) {

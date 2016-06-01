@@ -13,5 +13,10 @@ public class NullPromotion implements Promotion {
     return sku.unitPrice() * skuCount;
   }
 
+  @Override
+  public Sku sku() {
+    return sku;
+  }
+
 
 }
