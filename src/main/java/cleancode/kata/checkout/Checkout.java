@@ -14,18 +14,18 @@ import static java.util.stream.Collectors.toMap;
 public class Checkout {
 
   private List<Sku> skus = new ArrayList<>();
-  private Map<Sku, Promotion> promotionsBySku = new HashMap<>();
+  private Map<Sku, GetXForYPromotion> promotionsBySku = new HashMap<>();
 
   public Checkout() {
     super();
   }
 
-  public Checkout(Promotion promotion) {
+  public Checkout(GetXForYPromotion promotion) {
     this(asList(promotion));
   }
 
-  public Checkout(List<Promotion> promotions) {
-    this.promotionsBySku = promotions.stream().collect(toMap(Promotion::sku, identity()));
+  public Checkout(List<GetXForYPromotion> promotions) {
+    this.promotionsBySku = promotions.stream().collect(toMap(GetXForYPromotion::sku, identity()));
   }
 
   public void scan(String product) {
@@ -53,7 +53,7 @@ public class Checkout {
 
     totalPrice = skuCount.entrySet().stream().mapToInt(entrySet -> {
       int promotionPrice = 0;
-      Promotion promotion = promotionsBySku.get(entrySet.getKey());
+      GetXForYPromotion promotion = promotionsBySku.get(entrySet.getKey());
       if (promotion != null && promotion.thresholdCount() == entrySet.getValue()) {
         promotionPrice = promotion.offerPrice();
       } else {
