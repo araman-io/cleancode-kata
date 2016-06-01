@@ -7,6 +7,8 @@ import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.Test;
 
+import static java.util.Arrays.asList;
+
 import static org.junit.Assert.assertThat;
 
 public class CheckoutShould {
@@ -60,7 +62,8 @@ public class CheckoutShould {
 
   @Test
   public void price_3A_2B_with_3aFor130_2Bfor45_promo_as175() throws Exception {
-    Checkout checkout = new Checkout(new Promotion(A, 3, 130));
+    Checkout checkout = new Checkout(asList(new Promotion(A, 3, 130), 
+        new Promotion(B, 2, 45)));
     checkout.scan(A, A, A, B, B);
     assertThat(checkout.total(), is(175));
   }
