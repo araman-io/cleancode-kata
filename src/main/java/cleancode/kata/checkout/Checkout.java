@@ -45,18 +45,27 @@ public class Checkout {
   public int total() {
     int totalPrice = 0;
 
+    Map<Sku, Integer> skuCount = groupCartBySku();
+
+    totalPrice = skuCount //
+        .entrySet() //
+        .stream() //
+        .mapToInt(entrySet -> {
+          Promotion promotion = promotionFor(entrySet.getKey());
+          return promotion.evaluateTotal(entrySet.getValue());
+        }) //
+        .sum();
+
+    return totalPrice;
+  }
+
+  private Map<Sku, Integer> groupCartBySku() {
     Map<Sku, Integer> skuCount = new HashMap<>();
     for (Sku sku : skus) {
       Integer existingCount = skuCount.getOrDefault(sku, 0);
       skuCount.put(sku, existingCount + 1);
     }
-
-    totalPrice = skuCount.entrySet().stream().mapToInt(entrySet -> {
-      Promotion promotion = promotionFor(entrySet.getKey());
-      return promotion.evaluateTotal(entrySet.getValue());
-    }).sum();
-
-    return totalPrice;
+    return skuCount;
   }
 
   private Promotion promotionFor(Sku sku) {
