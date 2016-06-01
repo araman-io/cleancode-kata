@@ -5,6 +5,8 @@ import static cleancode.kata.checkout.Sku.valueOf;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 public class Checkout {
 
   private List<Sku> products = new ArrayList<>();
@@ -28,6 +30,12 @@ public class Checkout {
     products.add(product);
   }
 
+  public void scan(Sku... skus) {
+    asList(skus).forEach(sku -> {
+      products.add(sku);
+    });
+  }
+
   public int total() {
     int totalPrice = 0;
 
@@ -40,13 +48,15 @@ public class Checkout {
             return p.equals(promotedSku);
           }) //
           .count();
+      if (countOfPromotedSku == promotion.thresholdCount()) {
+        totalPrice = promotion.getOfferPrice();
+      }
     }
-    if (promotion != null && countOfPromotedSku == promotion.thresholdCount()) {
-      totalPrice = promotion.getOfferPrice();
-    } else {
-      totalPrice = products.stream().mapToInt(Sku::unitPrice).sum();
-    }
-    
+
+    totalPrice += products.stream().filter(p -> {
+      return !p.equals(promotedSku);
+    }).mapToInt(Sku::unitPrice).sum();
+
     return totalPrice;
   }
 
