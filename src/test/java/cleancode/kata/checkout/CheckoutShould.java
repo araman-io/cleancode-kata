@@ -42,5 +42,14 @@ public class CheckoutShould {
     checkout.scan(D);
     assertThat(checkout.total(), is(145));
   }
-  
+
+  @Test
+  public void price_3A_with3For130_promo_as130() throws Exception {
+    Checkout checkout = new Checkout(A, new Promotion(3, 130));
+    checkout.scan(A);
+    checkout.scan(A);
+    checkout.scan(A);
+    assertThat(checkout.total(), is(130));
+  }
+
 }
