@@ -1,5 +1,7 @@
 package cleancode.kata.checkout;
 
+import static cleancode.kata.checkout.Sku.A;
+import static cleancode.kata.checkout.Sku.D;
 import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.Test;
@@ -31,4 +33,14 @@ public class CheckoutShould {
     assertThat(checkout.total(), is(80));
   }
 
+  @Test
+  public void price_2A_1B_1D_as_130() throws Exception {
+    Checkout checkout = new Checkout();
+    checkout.scan("A");
+    checkout.scan("B");
+    checkout.scan(A);
+    checkout.scan(D);
+    assertThat(checkout.total(), is(145));
+  }
+  
 }
