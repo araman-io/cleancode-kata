@@ -3,21 +3,19 @@ package cleancode.kata.checkout;
 import static cleancode.kata.checkout.Sku.valueOf;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import static java.util.Arrays.asList;
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
 
 import cleancode.kata.checkout.promotion.NullPromotion;
 import cleancode.kata.checkout.promotion.Promotion;
 
 public class Checkout {
 
-  private List<Sku> skus = new ArrayList<>();
-  private Map<Sku, Promotion> promotionsBySku = new HashMap<>();
+  private List<Promotion> promotions = new ArrayList<>();
+  private Cart cart = new Cart();
 
   public Checkout() {
     super();
@@ -28,7 +26,7 @@ public class Checkout {
   }
 
   public Checkout(List<Promotion> promotions) {
-    this.promotionsBySku = promotions.stream().collect(toMap(Promotion::sku, identity()));
+    promotions.forEach(this.promotions::add);
   }
 
   public void scan(String product) {
@@ -36,43 +34,45 @@ public class Checkout {
   }
 
   public void scan(Sku product) {
-    skus.add(product);
+    scan(asList(product));
   }
 
-  public void scan(Sku... skus) {
-    asList(skus).forEach(sku -> {
-      this.skus.add(sku);
-    });
+  public void scan(List<Sku> skus) {
+    this.cart.scan(skus);
   }
 
   public int total() {
     int totalPrice = 0;
+    addNullPromotionsForSkusWithNoConfiguredPromotions();
 
-    Map<Sku, Integer> skuCount = groupCartBySku();
-
-    totalPrice = skuCount //
-        .entrySet() //
-        .stream() //
-        .mapToInt(entrySet -> {
-          Promotion promotion = promotionFor(entrySet.getKey());
-          return promotion.evaluateTotal(entrySet.getValue());
+    totalPrice = promotions.stream() //
+        .mapToInt(p -> {
+          return p.evaluateTotal(this);
         }) //
         .sum();
 
     return totalPrice;
   }
 
-  private Map<Sku, Integer> groupCartBySku() {
-    Map<Sku, Integer> skuCount = new HashMap<>();
-    for (Sku sku : skus) {
-      Integer existingCount = skuCount.getOrDefault(sku, 0);
-      skuCount.put(sku, existingCount + 1);
-    }
-    return skuCount;
+  public Cart cart() {
+    return this.cart;
   }
 
-  private Promotion promotionFor(Sku sku) {
-    return promotionsBySku.getOrDefault(sku, new NullPromotion(sku));
+  public List<Promotion> promotions() {
+    return this.promotions;
+  }
+
+  private void addNullPromotionsForSkusWithNoConfiguredPromotions() {
+    Set<Sku> cartSkus = this.cart.skuSet();
+    Set<Sku> promotionSkus = new HashSet<>();
+    this.promotions.forEach(p -> {
+      promotionSkus.addAll(p.appliesTo());
+    });
+
+    cartSkus.removeAll(promotionSkus);
+    cartSkus.forEach(s -> {
+      this.promotions.add(new NullPromotion(s));
+    });
   }
 
 }

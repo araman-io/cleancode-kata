@@ -1,11 +1,14 @@
 package cleancode.kata.checkout.promotion;
 
+import java.util.List;
+
+import cleancode.kata.checkout.Checkout;
 import cleancode.kata.checkout.Sku;
 
 public interface Promotion {
 
-  public Sku sku();
-  
-  public int evaluateTotal(int skuCount);
+  public List<Sku> appliesTo();
+
+  public int evaluateTotal(Checkout cart);
 
 }
