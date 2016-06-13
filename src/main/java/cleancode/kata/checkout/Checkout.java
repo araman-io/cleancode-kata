@@ -39,11 +39,11 @@ public class Checkout {
 
   public void scan(List<Sku> skus) {
     this.cart.scan(skus);
-    addNullPromotionsForSkusWithNoConfiguredPromotions();
   }
 
   public int total() {
     int totalPrice = 0;
+    addNullPromotionsForSkusWithNoConfiguredPromotions();
 
     totalPrice = promotions.stream() //
         .mapToInt(p -> {
@@ -53,11 +53,11 @@ public class Checkout {
 
     return totalPrice;
   }
-  
+
   public Cart cart() {
     return this.cart;
   }
-  
+
   public List<Promotion> promotions() {
     return this.promotions;
   }
