@@ -13,6 +13,8 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertThat;
 
 import cleancode.kata.checkout.promotion.GetXForYPromotion;
+import cleancode.kata.checkout.promotion.GetXYForZPromotion;
+import cleancode.kata.checkout.promotion.Promotion;
 
 public class CheckoutShould {
 
@@ -102,6 +104,14 @@ public class CheckoutShould {
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, D, A, B));
     assertThat(checkout.skuCount(C), is(0));
+  }
+
+  @Test
+  public void apply_a_combo_promotion_in_isolation() throws Exception {
+    Promotion promotion = new GetXYForZPromotion(A, B, 65);
+    Checkout cart = new Checkout(promotion);
+    cart.scan(asList(A, B));
+    assertThat(cart.total(), is(65));
   }
 
 }
