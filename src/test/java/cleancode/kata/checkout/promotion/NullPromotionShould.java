@@ -5,14 +5,20 @@ import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.Test;
 
+import static java.util.Arrays.asList;
+
 import static org.junit.Assert.assertThat;
+
+import cleancode.kata.checkout.Checkout;
 
 public class NullPromotionShould {
   
   @Test
   public void always_return_unitPrice_times_count() throws Exception {
     Promotion p = new NullPromotion(A);
-    assertThat(p.evaluateTotal(5), is(250));
+    Checkout checkout = new Checkout();
+    checkout.scan(asList(A, A, A, A, A));
+    assertThat(p.evaluateTotal(checkout), is(250));
     assertThat(p.sku(), is(A));
   }
 

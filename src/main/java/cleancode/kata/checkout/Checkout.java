@@ -18,6 +18,7 @@ public class Checkout {
 
   private List<Sku> skus = new ArrayList<>();
   private Map<Sku, Promotion> promotionsBySku = new HashMap<>();
+  private Map<Sku, Integer> skuCount;
 
   public Checkout() {
     super();
@@ -36,26 +37,25 @@ public class Checkout {
   }
 
   public void scan(Sku product) {
-    skus.add(product);
+    scan(asList(product));
   }
 
-  public void scan(Sku... skus) {
-    asList(skus).forEach(sku -> {
+  public void scan(List<Sku> skus) {
+    skus.forEach(sku -> {
       this.skus.add(sku);
     });
+    skuCount = groupCartBySku();
   }
 
   public int total() {
     int totalPrice = 0;
-
-    Map<Sku, Integer> skuCount = groupCartBySku();
 
     totalPrice = skuCount //
         .entrySet() //
         .stream() //
         .mapToInt(entrySet -> {
           Promotion promotion = promotionFor(entrySet.getKey());
-          return promotion.evaluateTotal(entrySet.getValue());
+          return promotion.evaluateTotal(this);
         }) //
         .sum();
 
@@ -74,5 +74,14 @@ public class Checkout {
   private Promotion promotionFor(Sku sku) {
     return promotionsBySku.getOrDefault(sku, new NullPromotion(sku));
   }
+
+  public boolean contains(Sku sku) {
+    return skuCount.containsKey(sku);
+  }
+  
+  public Integer skuCount(Sku sku) {
+    return skuCount.getOrDefault(sku, 0);
+  }
+
 
 }

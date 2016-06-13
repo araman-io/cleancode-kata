@@ -1,5 +1,6 @@
 package cleancode.kata.checkout.promotion;
 
+import cleancode.kata.checkout.Checkout;
 import cleancode.kata.checkout.Sku;
 
 public class GetXForYPromotion implements Promotion {
@@ -26,9 +27,14 @@ public class GetXForYPromotion implements Promotion {
     return offerPrice;
   }
 
-  public int evaluateTotal(int count) {
-    int thresholdUnits = count / thresholdCount;
-    return offerPrice * thresholdUnits + (sku.unitPrice() * (count % thresholdCount));
+  public int evaluateTotal(Checkout cart) {
+    int total = 0;
+    if (cart.contains(sku)) {
+      int thresholdUnits = cart.skuCount(sku) / thresholdCount;
+      total =
+          offerPrice * thresholdUnits + (sku.unitPrice() * (cart.skuCount(sku) % thresholdCount));
+    }
+    return total;
   }
 
 }

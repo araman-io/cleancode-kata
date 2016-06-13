@@ -52,31 +52,56 @@ public class CheckoutShould {
   @Test
   public void price_3A_with_3aFor130_promo_as130() throws Exception {
     Checkout checkout = new Checkout(new GetXForYPromotion(A, 3, 130));
-    checkout.scan(A, A, A);
+    checkout.scan(asList(A, A, A));
     assertThat(checkout.total(), is(130));
   }
 
   @Test
   public void price_3A_1B_with_3aFor130_promo_as160() throws Exception {
     Checkout checkout = new Checkout(new GetXForYPromotion(A, 3, 130));
-    checkout.scan(A, A, A, B);
+    checkout.scan(asList(A, A, A, B));
     assertThat(checkout.total(), is(160));
   }
 
   @Test
   public void price_3A_2B_with_3aFor130_2Bfor45_promo_as175() throws Exception {
-    Checkout checkout = new Checkout(asList(new GetXForYPromotion(A, 3, 130), 
-        new GetXForYPromotion(B, 2, 45)));
-    checkout.scan(A, A, A, B, B);
+    Checkout checkout =
+        new Checkout(asList(new GetXForYPromotion(A, 3, 130), new GetXForYPromotion(B, 2, 45)));
+    checkout.scan(asList(A, A, A, B, B));
     assertThat(checkout.total(), is(175));
   }
 
   @Test
   public void price_4A_2B_1C_with_3aFor130_2Bfor45_promo_as175() throws Exception {
-    Checkout checkout = new Checkout(asList(new GetXForYPromotion(A, 3, 130), 
-        new GetXForYPromotion(B, 2, 45)));
-    checkout.scan(A, B, A, B, A, C, A);
+    Checkout checkout =
+        new Checkout(asList(new GetXForYPromotion(A, 3, 130), new GetXForYPromotion(B, 2, 45)));
+    checkout.scan(asList(A, B, A, B, A, C, A));
     assertThat(checkout.total(), is(245));
+  }
+
+  @Test
+  public void contain_sku_a_and_not_c() {
+    Checkout checkout = new Checkout();
+    checkout.scan(A);
+    checkout.scan(D);
+    assertThat(checkout.contains(A), is(true));
+    assertThat(checkout.contains(C), is(false));
+  }
+
+  @Test
+  public void return_sku_count_if_cart_contains_sku() {
+    Checkout checkout = new Checkout();
+    checkout.scan(asList(A, D, A, B));
+    assertThat(checkout.skuCount(A), is(2));
+    assertThat(checkout.skuCount(B), is(1));
+    assertThat(checkout.skuCount(C), is(0));
+  }
+
+  @Test
+  public void return_0_if_cart_doesnt_contain_sku() {
+    Checkout checkout = new Checkout();
+    checkout.scan(asList(A, D, A, B));
+    assertThat(checkout.skuCount(C), is(0));
   }
 
 }

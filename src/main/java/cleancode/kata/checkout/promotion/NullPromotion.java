@@ -1,5 +1,6 @@
 package cleancode.kata.checkout.promotion;
 
+import cleancode.kata.checkout.Checkout;
 import cleancode.kata.checkout.Sku;
 
 public class NullPromotion implements Promotion {
@@ -11,8 +12,8 @@ public class NullPromotion implements Promotion {
   }
 
   @Override
-  public int evaluateTotal(int skuCount) {
-    return sku.unitPrice() * skuCount;
+  public int evaluateTotal(Checkout cart) {
+    return sku.unitPrice() * cart.skuCount(sku);
   }
 
   @Override
