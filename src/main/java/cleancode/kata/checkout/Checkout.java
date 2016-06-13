@@ -3,11 +3,11 @@ package cleancode.kata.checkout;
 import static cleancode.kata.checkout.Sku.valueOf;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toSet;
 
 import cleancode.kata.checkout.promotion.NullPromotion;
 import cleancode.kata.checkout.promotion.Promotion;
@@ -56,11 +56,10 @@ public class Checkout {
 
   private void addNullPromotionsForSkusWithNoConfiguredPromotions() {
     Set<Sku> cartSkus = this.cart.skuSet();
-    Set<Sku> promotionSkus = promotions.stream() //
-        .flatMap(p -> {
-          return p.appliesTo().stream();
-        })//
-        .collect(toSet());
+    Set<Sku> promotionSkus = new HashSet<>();
+    this.promotions.forEach(p -> {
+      promotionSkus.addAll(p.appliesTo());
+    });
 
     cartSkus.removeAll(promotionSkus);
     cartSkus.forEach(s -> {
