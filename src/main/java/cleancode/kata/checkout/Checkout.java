@@ -42,9 +42,7 @@ public class Checkout {
   }
 
   public void scan(List<Sku> skus) {
-    skus.forEach(sku -> {
-      this.skus.add(sku);
-    });
+    this.skus.addAll(skus);
     groupCartBySku();
     addNullPromotionsForSkusWithNoConfiguredPromotions();
   }
