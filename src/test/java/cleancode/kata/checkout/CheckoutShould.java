@@ -86,24 +86,24 @@ public class CheckoutShould {
     Checkout checkout = new Checkout();
     checkout.scan(A);
     checkout.scan(D);
-    assertThat(checkout.contains(A), is(true));
-    assertThat(checkout.contains(C), is(false));
+    assertThat(checkout.cart.contains( A), is(true));
+    assertThat(checkout.cart.contains(C), is(false));
   }
 
   @Test
   public void return_sku_count_if_cart_contains_sku() {
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, D, A, B));
-    assertThat(checkout.skuCount(A), is(2));
-    assertThat(checkout.skuCount(B), is(1));
-    assertThat(checkout.skuCount(C), is(0));
+    assertThat(checkout.cart.skuCount(A), is(2));
+    assertThat(checkout.cart.skuCount(B), is(1));
+    assertThat(checkout.cart.skuCount(C), is(0));
   }
 
   @Test
   public void return_0_if_cart_doesnt_contain_sku() {
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, D, A, B));
-    assertThat(checkout.skuCount(C), is(0));
+    assertThat(checkout.cart.skuCount(C), is(0));
   }
 
   @Test
@@ -120,6 +120,15 @@ public class CheckoutShould {
     Checkout cart = new Checkout(promotion1);
     cart.scan(asList(A, B, C, C));
     assertThat(cart.total(), is(105));
+  }
+  
+  @Test
+  public void apply_a_combo_promotion_normal_and_null_promotion() throws Exception {
+    Promotion promotion1 = new GetXYForZPromotion(A, B, 65);
+    Promotion promotion2 = new GetXForYPromotion(B, 2, 50);
+    Checkout cart = new Checkout(asList(promotion1, promotion2));
+    cart.scan(asList(A, B, B, B, C));
+    assertThat(cart.total(), is(135));
   }
 
 }

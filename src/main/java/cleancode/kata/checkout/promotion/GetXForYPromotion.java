@@ -31,12 +31,12 @@ public class GetXForYPromotion implements Promotion {
     return offerPrice;
   }
 
-  public int evaluateTotal(Checkout cart) {
+  public int evaluateTotal(Checkout checkout) {
     int total = 0;
-    if (cart.contains(sku)) {
-      int thresholdUnits = cart.skuCount(sku) / thresholdCount;
-      total =
-          offerPrice * thresholdUnits + (sku.unitPrice() * (cart.skuCount(sku) % thresholdCount));
+    if (checkout.cart.contains(sku)) {
+      int thresholdUnits = checkout.cart.skuCount(sku) / thresholdCount;
+      total = offerPrice * thresholdUnits
+          + (sku.unitPrice() * (checkout.cart.skuCount(sku) % thresholdCount));
     }
     return total;
   }

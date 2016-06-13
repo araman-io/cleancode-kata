@@ -25,8 +25,8 @@ public class GetXYForZPromotion implements Promotion {
   }
 
   @Override
-  public int evaluateTotal(Checkout cart) {
-    return cart.contains(sku1) && cart.contains(sku2) ? offerPrice : 0;
+  public int evaluateTotal(Checkout checkout) {
+    return checkout.cart.contains(sku1) && checkout.cart.contains(sku2) ? offerPrice : 0;
   }
 
 }

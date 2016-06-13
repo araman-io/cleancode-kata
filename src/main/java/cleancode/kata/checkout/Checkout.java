@@ -3,10 +3,7 @@ package cleancode.kata.checkout;
 import static cleancode.kata.checkout.Sku.valueOf;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
@@ -17,9 +14,8 @@ import cleancode.kata.checkout.promotion.Promotion;
 
 public class Checkout {
 
-  private List<Sku> skus = new ArrayList<>();
   private List<Promotion> promotions = new ArrayList<>();
-  private Map<Sku, Integer> skuCount;
+  public Cart cart = new Cart();
 
   public Checkout() {
     super();
@@ -42,8 +38,7 @@ public class Checkout {
   }
 
   public void scan(List<Sku> skus) {
-    this.skus.addAll(skus);
-    groupCartBySku();
+    this.cart.scan(skus);
     addNullPromotionsForSkusWithNoConfiguredPromotions();
   }
 
@@ -59,24 +54,8 @@ public class Checkout {
     return totalPrice;
   }
 
-  public boolean contains(Sku sku) {
-    return skuCount.containsKey(sku);
-  }
-
-  public Integer skuCount(Sku sku) {
-    return skuCount.getOrDefault(sku, 0);
-  }
-
-  private void groupCartBySku() {
-    this.skuCount = new HashMap<>();
-    for (Sku sku : skus) {
-      Integer existingCount = this.skuCount.getOrDefault(sku, 0);
-      this.skuCount.put(sku, existingCount + 1);
-    }
-  }
-
   private void addNullPromotionsForSkusWithNoConfiguredPromotions() {
-    Set<Sku> cartSkus = new HashSet<>(skus);
+    Set<Sku> cartSkus = this.cart.skuSet();
     Set<Sku> promotionSkus = promotions.stream() //
         .flatMap(p -> {
           return p.appliesTo().stream();
