@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toSet;
 
 import cleancode.kata.checkout.promotion.NullPromotion;
 import cleancode.kata.checkout.promotion.Promotion;
@@ -78,19 +79,16 @@ public class Checkout {
 
   private void addNullPromotionsForSkusWithNoConfiguredPromotions() {
     Set<Sku> cartSkus = new HashSet<>(skus);
-    Set<Sku> promotionSkus = new HashSet<>();
-    
-    promotions.stream() //
-        .map(Promotion::appliesTo)//
-        .forEach(promotionSkus::addAll);
+    Set<Sku> promotionSkus = promotions.stream() //
+        .flatMap(p -> {
+          return p.appliesTo().stream();
+        })//
+        .collect(toSet());
 
-    cartSkus.stream() //
-        .filter(s -> {
-          return !promotionSkus.contains(s) ? true : false;
-        }) //
-        .forEach(s -> {
-          this.promotions.add(new NullPromotion(s));
-        });
+    cartSkus.removeAll(promotionSkus);
+    cartSkus.forEach(s -> {
+      this.promotions.add(new NullPromotion(s));
+    });
   }
 
 }

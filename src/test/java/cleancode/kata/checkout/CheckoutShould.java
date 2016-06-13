@@ -114,4 +114,12 @@ public class CheckoutShould {
     assertThat(cart.total(), is(65));
   }
 
+  @Test
+  public void apply_a_combo_promotion_and_null_promotion() throws Exception {
+    Promotion promotion1 = new GetXYForZPromotion(A, B, 65);
+    Checkout cart = new Checkout(promotion1);
+    cart.scan(asList(A, B, C, C));
+    assertThat(cart.total(), is(105));
+  }
+
 }
