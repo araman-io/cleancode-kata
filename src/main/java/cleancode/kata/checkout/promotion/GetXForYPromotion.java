@@ -1,5 +1,9 @@
 package cleancode.kata.checkout.promotion;
 
+import java.util.List;
+
+import static java.util.Arrays.asList;
+
 import cleancode.kata.checkout.Checkout;
 import cleancode.kata.checkout.Sku;
 
@@ -15,8 +19,8 @@ public class GetXForYPromotion implements Promotion {
     this.offerPrice = offerPrice;
   }
 
-  public Sku sku() {
-    return sku;
+  public List<Sku> appliesTo() {
+    return asList(sku);
   }
 
   public int thresholdCount() {

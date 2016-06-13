@@ -31,4 +31,11 @@ public class GetXYForZPromotionShould {
     assertThat(promotion.evaluateTotal(cart), is(0));
   }
 
+  @Test
+  public void return_applicable_skus() throws Exception {
+    GetXYForZPromotion promotion = new GetXYForZPromotion(A, B, 65);
+    assertThat(promotion.appliesTo(), is(asList(A, B)));
+  }
+
+
 }

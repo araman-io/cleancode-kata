@@ -4,12 +4,12 @@ import static cleancode.kata.checkout.Sku.valueOf;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static java.util.Arrays.asList;
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
 
 import cleancode.kata.checkout.promotion.NullPromotion;
 import cleancode.kata.checkout.promotion.Promotion;
@@ -17,7 +17,7 @@ import cleancode.kata.checkout.promotion.Promotion;
 public class Checkout {
 
   private List<Sku> skus = new ArrayList<>();
-  private Map<Sku, Promotion> promotionsBySku = new HashMap<>();
+  private List<Promotion> promotions = new ArrayList<>();
   private Map<Sku, Integer> skuCount;
 
   public Checkout() {
@@ -29,7 +29,7 @@ public class Checkout {
   }
 
   public Checkout(List<Promotion> promotions) {
-    this.promotionsBySku = promotions.stream().collect(toMap(Promotion::sku, identity()));
+    promotions.forEach(this.promotions::add);
   }
 
   public void scan(String product) {
@@ -51,7 +51,7 @@ public class Checkout {
   public int total() {
     int totalPrice = 0;
 
-    totalPrice = promotionsBySku.values().stream() //
+    totalPrice = promotions.stream() //
         .mapToInt(p -> {
           return p.evaluateTotal(this);
         }) //
@@ -77,12 +77,19 @@ public class Checkout {
   }
 
   private void addNullPromotionsForSkusWithNoConfiguredPromotions() {
-    skus.stream() //
+    Set<Sku> cartSkus = new HashSet<>(skus);
+    Set<Sku> promotionSkus = new HashSet<>();
+    
+    promotions.stream() //
+        .map(Promotion::appliesTo)//
+        .forEach(promotionSkus::addAll);
+
+    cartSkus.stream() //
         .filter(s -> {
-          return !promotionsBySku.containsKey(s) ? true : false;
+          return !promotionSkus.contains(s) ? true : false;
         }) //
         .forEach(s -> {
-          this.promotionsBySku.put(s, new NullPromotion(s));
+          this.promotions.add(new NullPromotion(s));
         });
   }
 

@@ -1,5 +1,9 @@
 package cleancode.kata.checkout.promotion;
 
+import java.util.List;
+
+import static java.util.Arrays.asList;
+
 import cleancode.kata.checkout.Checkout;
 import cleancode.kata.checkout.Sku;
 
@@ -16,8 +20,8 @@ public class GetXYForZPromotion implements Promotion {
   }
 
   @Override
-  public Sku sku() {
-    return null;
+  public List<Sku> appliesTo() {
+    return asList(sku1, sku2);
   }
 
   @Override

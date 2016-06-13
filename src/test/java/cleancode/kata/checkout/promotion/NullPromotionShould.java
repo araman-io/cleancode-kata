@@ -19,7 +19,7 @@ public class NullPromotionShould {
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, A, A, A, A));
     assertThat(p.evaluateTotal(checkout), is(250));
-    assertThat(p.sku(), is(A));
+    assertThat(p.appliesTo(), is(asList(A)));
   }
 
 }
