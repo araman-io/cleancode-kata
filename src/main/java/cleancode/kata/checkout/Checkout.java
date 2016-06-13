@@ -44,44 +44,46 @@ public class Checkout {
     skus.forEach(sku -> {
       this.skus.add(sku);
     });
-    skuCount = groupCartBySku();
+    groupCartBySku();
+    addNullPromotionsForSkusWithNoConfiguredPromotions();
   }
 
   public int total() {
     int totalPrice = 0;
 
-    totalPrice = skuCount //
-        .entrySet() //
-        .stream() //
-        .mapToInt(entrySet -> {
-          Promotion promotion = promotionFor(entrySet.getKey());
-          return promotion.evaluateTotal(this);
+    totalPrice = promotionsBySku.values().stream() //
+        .mapToInt(p -> {
+          return p.evaluateTotal(this);
         }) //
         .sum();
 
     return totalPrice;
   }
 
-  private Map<Sku, Integer> groupCartBySku() {
-    Map<Sku, Integer> skuCount = new HashMap<>();
-    for (Sku sku : skus) {
-      Integer existingCount = skuCount.getOrDefault(sku, 0);
-      skuCount.put(sku, existingCount + 1);
-    }
-    return skuCount;
-  }
-
-  private Promotion promotionFor(Sku sku) {
-    return promotionsBySku.getOrDefault(sku, new NullPromotion(sku));
-  }
-
   public boolean contains(Sku sku) {
     return skuCount.containsKey(sku);
   }
-  
+
   public Integer skuCount(Sku sku) {
     return skuCount.getOrDefault(sku, 0);
   }
 
+  private void groupCartBySku() {
+    this.skuCount = new HashMap<>();
+    for (Sku sku : skus) {
+      Integer existingCount = this.skuCount.getOrDefault(sku, 0);
+      this.skuCount.put(sku, existingCount + 1);
+    }
+  }
+
+  private void addNullPromotionsForSkusWithNoConfiguredPromotions() {
+    skus.stream() //
+        .filter(s -> {
+          return !promotionsBySku.containsKey(s) ? true : false;
+        }) //
+        .forEach(s -> {
+          this.promotionsBySku.put(s, new NullPromotion(s));
+        });
+  }
 
 }
