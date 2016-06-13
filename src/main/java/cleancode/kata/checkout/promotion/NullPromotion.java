@@ -17,7 +17,9 @@ public class NullPromotion implements Promotion {
 
   @Override
   public int evaluateTotal(Checkout checkout) {
-    return sku.unitPrice() * checkout.cart.skuCount(sku);
+    int result = sku.unitPrice() * checkout.cart.skuCount(sku);
+    checkout.cart.resetSkuCount(sku);
+    return result;
   }
 
   @Override

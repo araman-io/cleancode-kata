@@ -37,6 +37,7 @@ public class GetXForYPromotion implements Promotion {
       int thresholdUnits = checkout.cart.skuCount(sku) / thresholdCount;
       total = offerPrice * thresholdUnits
           + (sku.unitPrice() * (checkout.cart.skuCount(sku) % thresholdCount));
+      checkout.cart.resetSkuCount(sku);
     }
     return total;
   }

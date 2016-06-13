@@ -47,6 +47,15 @@ public class GetXForYPromotionShould {
     c.scan(Sku.B);
     assertThat(promotion.evaluateTotal(c), is(0));
   }
+  
+  @Test
+  public void decrements_cart_quantity_when_promotion_applies() {
+    Promotion promotion = new GetXForYPromotion(Sku.A, 3, 130);
+    Checkout checkout = new Checkout();
+    checkout.scan(asList(A, A));
+    assertThat(promotion.evaluateTotal(checkout), is(100));
+    assertThat(checkout.cart.skuCount(A), is(0));
+  }
 
 
 }

@@ -34,7 +34,7 @@ public class CartShould {
   public void decrement_sku_count_when_sku_is_present() throws Exception {
     Cart c = new Cart();
     c.scan(asList(A, B, B, C));
-    c.decrementSkuBy(B, 1);
+    c.decrementSkuCountBy(B, 1);
     assertThat(c.skuCount(B), is(1));
   }
 
@@ -42,7 +42,7 @@ public class CartShould {
   public void decrement_sku_count_to_0_when_sku_is_present() throws Exception {
     Cart c = new Cart();
     c.scan(asList(A, B, B, C));
-    c.decrementSkuBy(C, 1);
+    c.decrementSkuCountBy(C, 1);
     assertThat(c.skuCount(C), is(0));
   }
   
@@ -50,7 +50,7 @@ public class CartShould {
   public void not_decrement_sku_count_when_sku_is_not_present() throws Exception {
     Cart c = new Cart();
     c.scan(asList(A, B, B, C));
-    c.decrementSkuBy(D, 1);
+    c.decrementSkuCountBy(D, 1);
     assertThat(c.skuCount(D), is(0));
   }
   
@@ -58,7 +58,7 @@ public class CartShould {
   public void not_decrement_sku_count__below_0_when_more_quantity_requested_to_be_decremented() throws Exception {
     Cart c = new Cart();
     c.scan(asList(A, B, B, C));
-    c.decrementSkuBy(B, 5);
+    c.decrementSkuCountBy(B, 5);
     assertThat(c.skuCount(B), is(0));
   }
 }

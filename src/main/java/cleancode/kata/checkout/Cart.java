@@ -39,13 +39,17 @@ public class Cart {
     }
   }
 
-  public void decrementSkuBy(Sku sku, int decrementBy) {
+  public void decrementSkuCountBy(Sku sku, int decrementBy) {
     Integer newCount = this.skuCount(sku) - decrementBy;
     if (newCount < 0) {
       this.skuCount.put(sku, 0);
     } else {
       this.skuCount.put(sku, newCount);
     }
+  }
+
+  public void resetSkuCount(Sku sku) {
+    this.skuCount.put(sku, 0);
   }
 
 }

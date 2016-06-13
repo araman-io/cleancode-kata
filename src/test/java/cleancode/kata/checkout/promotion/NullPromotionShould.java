@@ -22,4 +22,13 @@ public class NullPromotionShould {
     assertThat(p.appliesTo(), is(asList(A)));
   }
 
+  @Test
+  public void reset_sku_count() throws Exception {
+    Promotion p = new NullPromotion(A);
+    Checkout checkout = new Checkout();
+    checkout.scan(asList(A, A, A, A, A));
+    p.evaluateTotal(checkout);
+    assertThat(checkout.cart.skuCount(A), is(0));
+  }
+
 }

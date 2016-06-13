@@ -36,6 +36,31 @@ public class GetXYForZPromotionShould {
     GetXYForZPromotion promotion = new GetXYForZPromotion(A, B, 65);
     assertThat(promotion.appliesTo(), is(asList(A, B)));
   }
+  
+  @Test
+  public void decrement_sku_count_for_both_skus_by_1() throws Exception {
+    GetXYForZPromotion promotion = new GetXYForZPromotion(A, B, 65);
+    Checkout checkout = new Checkout(promotion);
+    checkout.scan(asList(A, B, C));
+    
+    promotion.evaluateTotal(checkout);
+    
+    assertThat(checkout.cart.skuCount(A), is(0));
+    assertThat(checkout.cart.skuCount(B), is(0));
+    assertThat(checkout.cart.skuCount(C), is(1));
+  }
 
+  @Test
+  public void decrement_sku_count_for_both_skus_only_by_1() throws Exception {
+    GetXYForZPromotion promotion = new GetXYForZPromotion(A, B, 65);
+    Checkout checkout = new Checkout(promotion);
+    checkout.scan(asList(A, B, A, A, A));
+    
+    promotion.evaluateTotal(checkout);
+    
+    assertThat(checkout.cart.skuCount(A), is(3));
+    assertThat(checkout.cart.skuCount(B), is(0));
+    assertThat(checkout.cart.skuCount(C), is(0));
+  }
 
 }
