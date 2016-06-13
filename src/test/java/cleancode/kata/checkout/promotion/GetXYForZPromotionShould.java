@@ -45,9 +45,9 @@ public class GetXYForZPromotionShould {
     
     promotion.evaluateTotal(checkout);
     
-    assertThat(checkout.cart.skuCount(A), is(0));
-    assertThat(checkout.cart.skuCount(B), is(0));
-    assertThat(checkout.cart.skuCount(C), is(1));
+    assertThat(checkout.cart().skuCount(A), is(0));
+    assertThat(checkout.cart().skuCount(B), is(0));
+    assertThat(checkout.cart().skuCount(C), is(1));
   }
 
   @Test
@@ -58,9 +58,9 @@ public class GetXYForZPromotionShould {
     
     promotion.evaluateTotal(checkout);
     
-    assertThat(checkout.cart.skuCount(A), is(3));
-    assertThat(checkout.cart.skuCount(B), is(0));
-    assertThat(checkout.cart.skuCount(C), is(0));
+    assertThat(checkout.cart().skuCount(A), is(3));
+    assertThat(checkout.cart().skuCount(B), is(0));
+    assertThat(checkout.cart().skuCount(C), is(0));
   }
 
 }

@@ -15,7 +15,7 @@ import cleancode.kata.checkout.promotion.Promotion;
 public class Checkout {
 
   private List<Promotion> promotions = new ArrayList<>();
-  public Cart cart = new Cart();
+  private Cart cart = new Cart();
 
   public Checkout() {
     super();
@@ -52,6 +52,14 @@ public class Checkout {
         .sum();
 
     return totalPrice;
+  }
+  
+  public Cart cart() {
+    return this.cart;
+  }
+  
+  public List<Promotion> promotions() {
+    return this.promotions;
   }
 
   private void addNullPromotionsForSkusWithNoConfiguredPromotions() {

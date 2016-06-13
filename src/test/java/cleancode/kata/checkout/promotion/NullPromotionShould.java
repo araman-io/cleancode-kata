@@ -28,7 +28,7 @@ public class NullPromotionShould {
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, A, A, A, A));
     p.evaluateTotal(checkout);
-    assertThat(checkout.cart.skuCount(A), is(0));
+    assertThat(checkout.cart().skuCount(A), is(0));
   }
 
 }

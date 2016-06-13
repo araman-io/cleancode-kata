@@ -86,24 +86,24 @@ public class CheckoutShould {
     Checkout checkout = new Checkout();
     checkout.scan(A);
     checkout.scan(D);
-    assertThat(checkout.cart.contains( A), is(true));
-    assertThat(checkout.cart.contains(C), is(false));
+    assertThat(checkout.cart().contains( A), is(true));
+    assertThat(checkout.cart().contains(C), is(false));
   }
 
   @Test
   public void return_sku_count_if_cart_contains_sku() {
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, D, A, B));
-    assertThat(checkout.cart.skuCount(A), is(2));
-    assertThat(checkout.cart.skuCount(B), is(1));
-    assertThat(checkout.cart.skuCount(C), is(0));
+    assertThat(checkout.cart().skuCount(A), is(2));
+    assertThat(checkout.cart().skuCount(B), is(1));
+    assertThat(checkout.cart().skuCount(C), is(0));
   }
 
   @Test
   public void return_0_if_cart_doesnt_contain_sku() {
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, D, A, B));
-    assertThat(checkout.cart.skuCount(C), is(0));
+    assertThat(checkout.cart().skuCount(C), is(0));
   }
 
   @Test

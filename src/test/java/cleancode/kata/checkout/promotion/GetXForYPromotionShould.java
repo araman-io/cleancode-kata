@@ -54,7 +54,7 @@ public class GetXForYPromotionShould {
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, A));
     assertThat(promotion.evaluateTotal(checkout), is(100));
-    assertThat(checkout.cart.skuCount(A), is(0));
+    assertThat(checkout.cart().skuCount(A), is(0));
   }
 
 
