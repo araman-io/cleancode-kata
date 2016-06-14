@@ -57,7 +57,4 @@ public class Checkout {
     return this.cart;
   }
 
-  public List<Promotion> promotions() {
-    return this.promotions;
-  }
 }
