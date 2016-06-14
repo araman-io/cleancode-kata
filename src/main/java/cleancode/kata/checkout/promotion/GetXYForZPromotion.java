@@ -27,7 +27,8 @@ public class GetXYForZPromotion implements Promotion {
   @Override
   public int evaluateTotal(Checkout checkout) {
     int result = 0;
-    if (checkout.cart().contains(sku1) && checkout.cart().contains(sku2)) {
+    if (checkout.cart().contains(sku1) && checkout.cart().contains(sku2)
+        && checkout.cart().skuCount(sku1) > 0 && checkout.cart().skuCount(sku2) > 0) {
       result = offerPrice;
       checkout.cart().decrementSkuCountBy(sku1, 1);
       checkout.cart().decrementSkuCountBy(sku2, 1);
