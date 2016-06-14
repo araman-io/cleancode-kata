@@ -19,7 +19,7 @@ public class GetXForYPromotionShould {
     Promotion promotion = new GetXForYPromotion(A, 3, 130);
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, A, A));
-    assertThat(promotion.evaluateTotal(checkout), is(130));
+    assertThat(promotion.evaluateTotal(checkout.cart()), is(130));
   }
 
   @Test
@@ -28,7 +28,7 @@ public class GetXForYPromotionShould {
     Promotion promotion = new GetXForYPromotion(Sku.A, 3, 130);
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, A));
-    assertThat(promotion.evaluateTotal(checkout), is(100));
+    assertThat(promotion.evaluateTotal(checkout.cart()), is(100));
   }
 
   @Test
@@ -37,7 +37,7 @@ public class GetXForYPromotionShould {
     Promotion promotion = new GetXForYPromotion(Sku.A, 3, 130);
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, A, A, A, A));
-    assertThat(promotion.evaluateTotal(checkout), is(230));
+    assertThat(promotion.evaluateTotal(checkout.cart()), is(230));
   }
 
   @Test
@@ -45,7 +45,7 @@ public class GetXForYPromotionShould {
     Promotion promotion = new GetXForYPromotion(Sku.A, 3, 130);
     Checkout c = new Checkout(promotion);
     c.scan(Sku.B);
-    assertThat(promotion.evaluateTotal(c), is(0));
+    assertThat(promotion.evaluateTotal(c.cart()), is(0));
   }
   
   @Test
@@ -53,7 +53,7 @@ public class GetXForYPromotionShould {
     Promotion promotion = new GetXForYPromotion(Sku.A, 3, 130);
     Checkout checkout = new Checkout();
     checkout.scan(asList(A, A));
-    assertThat(promotion.evaluateTotal(checkout), is(100));
+    assertThat(promotion.evaluateTotal(checkout.cart()), is(100));
     assertThat(checkout.cart().skuCount(A), is(0));
   }
 

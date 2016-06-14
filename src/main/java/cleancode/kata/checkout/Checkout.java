@@ -47,7 +47,7 @@ public class Checkout {
 
     totalPrice = promotions.stream() //
         .mapToInt(p -> {
-          return p.evaluateTotal(this);
+          return p.evaluateTotal(this.cart());
         }) //
         .sum();
 

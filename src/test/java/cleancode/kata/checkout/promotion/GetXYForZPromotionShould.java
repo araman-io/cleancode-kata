@@ -19,17 +19,17 @@ public class GetXYForZPromotionShould {
   @Test
   public void apply_when_both_A_and_B_are_in_cart() throws Exception {
     GetXYForZPromotion promotion = new GetXYForZPromotion(A, B, 65);
-    Checkout cart = new Checkout(promotion);
-    cart.scan(asList(A, B));
-    assertThat(promotion.evaluateTotal(cart), is(65));
+    Checkout checkout = new Checkout(promotion);
+    checkout.scan(asList(A, B));
+    assertThat(promotion.evaluateTotal(checkout.cart()), is(65));
   }
 
   @Test
   public void not_apply_when_both_A_and_B_ARENT_in_cart() throws Exception {
     GetXYForZPromotion promotion = new GetXYForZPromotion(A, B, 65);
-    Checkout cart = new Checkout(promotion);
-    cart.scan(asList(A, C));
-    assertThat(promotion.evaluateTotal(cart), is(0));
+    Checkout checkout = new Checkout(promotion);
+    checkout.scan(asList(A, C));
+    assertThat(promotion.evaluateTotal(checkout.cart()), is(0));
   }
 
   @Test
@@ -44,7 +44,7 @@ public class GetXYForZPromotionShould {
     Checkout checkout = new Checkout(promotion);
     checkout.scan(asList(A, B, C));
 
-    promotion.evaluateTotal(checkout);
+    promotion.evaluateTotal(checkout.cart());
 
     assertThat(checkout.cart().skuCount(A), is(0));
     assertThat(checkout.cart().skuCount(B), is(0));
@@ -57,7 +57,7 @@ public class GetXYForZPromotionShould {
     Checkout checkout = new Checkout(promotion);
     checkout.scan(asList(A, B, A, A, A));
 
-    promotion.evaluateTotal(checkout);
+    promotion.evaluateTotal(checkout.cart());
 
     assertThat(checkout.cart().skuCount(A), is(3));
     assertThat(checkout.cart().skuCount(B), is(0));
@@ -70,7 +70,7 @@ public class GetXYForZPromotionShould {
     Checkout checkout = new Checkout(promotion);
     checkout.scan(asList(B, C, D, A));
 
-    int evaluateTotal = promotion.evaluateTotal(checkout);
+    int evaluateTotal = promotion.evaluateTotal(checkout.cart());
 
     assertThat(evaluateTotal, is(65));
   }
@@ -83,7 +83,7 @@ public class GetXYForZPromotionShould {
     checkout.cart().resetSkuCount(A);
     checkout.cart().resetSkuCount(B);
 
-    int evaluateTotal = promotion.evaluateTotal(checkout);
+    int evaluateTotal = promotion.evaluateTotal(checkout.cart());
 
     assertThat(evaluateTotal, is(0));
   }

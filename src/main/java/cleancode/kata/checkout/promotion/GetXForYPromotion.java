@@ -4,7 +4,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-import cleancode.kata.checkout.Checkout;
+import cleancode.kata.checkout.Cart;
 import cleancode.kata.checkout.Sku;
 
 public class GetXForYPromotion implements Promotion {
@@ -31,13 +31,13 @@ public class GetXForYPromotion implements Promotion {
     return offerPrice;
   }
 
-  public int evaluateTotal(Checkout checkout) {
+  public int evaluateTotal(Cart cart) {
     int total = 0;
-    if (checkout.cart().contains(sku)) {
-      int thresholdUnits = checkout.cart().skuCount(sku) / thresholdCount;
-      total = offerPrice * thresholdUnits
-          + (sku.unitPrice() * (checkout.cart().skuCount(sku) % thresholdCount));
-      checkout.cart().resetSkuCount(sku);
+    if (cart.contains(sku)) {
+      int thresholdUnits = cart.skuCount(sku) / thresholdCount;
+      total =
+          offerPrice * thresholdUnits + (sku.unitPrice() * (cart.skuCount(sku) % thresholdCount));
+      cart.resetSkuCount(sku);
     }
     return total;
   }

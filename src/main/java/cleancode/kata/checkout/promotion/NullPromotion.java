@@ -4,7 +4,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-import cleancode.kata.checkout.Checkout;
+import cleancode.kata.checkout.Cart;
 import cleancode.kata.checkout.Sku;
 
 public class NullPromotion implements Promotion {
@@ -16,9 +16,9 @@ public class NullPromotion implements Promotion {
   }
 
   @Override
-  public int evaluateTotal(Checkout checkout) {
-    int result = sku.unitPrice() * checkout.cart().skuCount(sku);
-    checkout.cart().resetSkuCount(sku);
+  public int evaluateTotal(Cart cart) {
+    int result = sku.unitPrice() * cart.skuCount(sku);
+    cart.resetSkuCount(sku);
     return result;
   }
 

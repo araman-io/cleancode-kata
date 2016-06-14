@@ -4,7 +4,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-import cleancode.kata.checkout.Checkout;
+import cleancode.kata.checkout.Cart;
 import cleancode.kata.checkout.Sku;
 
 public class GetXYForZPromotion implements Promotion {
@@ -25,13 +25,13 @@ public class GetXYForZPromotion implements Promotion {
   }
 
   @Override
-  public int evaluateTotal(Checkout checkout) {
+  public int evaluateTotal(Cart cart) {
     int result = 0;
-    if (checkout.cart().contains(sku1) && checkout.cart().contains(sku2)
-        && checkout.cart().skuCount(sku1) > 0 && checkout.cart().skuCount(sku2) > 0) {
+    if (cart.contains(sku1) && cart.contains(sku2) && cart.skuCount(sku1) > 0
+        && cart.skuCount(sku2) > 0) {
       result = offerPrice;
-      checkout.cart().decrementSkuCountBy(sku1, 1);
-      checkout.cart().decrementSkuCountBy(sku2, 1);
+      cart.decrementSkuCountBy(sku1, 1);
+      cart.decrementSkuCountBy(sku2, 1);
     }
     return result;
   }
