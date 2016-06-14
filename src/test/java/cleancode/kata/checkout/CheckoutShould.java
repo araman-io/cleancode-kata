@@ -130,5 +130,26 @@ public class CheckoutShould {
     cart.scan(asList(A, B, B, B, C));
     assertThat(cart.total(), is(135));
   }
+  
+  @Test
+  public void order_of_scan_doesnt_matter() throws Exception {
+    Promotion promotion1 = new GetXYForZPromotion(A, B, 65);
+    Promotion promotion2 = new GetXForYPromotion(B, 2, 50);
+    Checkout cart = new Checkout(asList(promotion1, promotion2));
+    cart.scan(asList(B, A, C, B, B));
+    assertThat(cart.total(), is(135));
+  }
+  
+  @Test
+  public void order_of_promotion_matters() throws Exception {
+    Promotion promotion2 = new GetXForYPromotion(B, 2, 50);
+    Promotion promotion1 = new GetXYForZPromotion(A, B, 65);
+    
+    Checkout checkout = new Checkout(asList(promotion2, promotion1));
+    checkout.scan(asList(B, A, C, B));
+    
+    assertThat(checkout.total(), is(120));
+  }
+
 
 }

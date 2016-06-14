@@ -52,4 +52,13 @@ public class Cart {
     this.skuCount.put(sku, 0);
   }
 
+  @Override
+  public String toString() {
+    return "Cart [skus=" + skus + ", skuCount=" + skuCount + "]";
+  }
+
+  public Map<Sku, Integer> getSkuCountMap() {
+    return this.skuCount;
+  }
+
 }

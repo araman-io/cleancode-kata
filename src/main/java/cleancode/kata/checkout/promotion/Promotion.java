@@ -1,14 +1,9 @@
 package cleancode.kata.checkout.promotion;
 
-import java.util.List;
-
-import cleancode.kata.checkout.Checkout;
-import cleancode.kata.checkout.Sku;
+import cleancode.kata.checkout.Cart;
 
 public interface Promotion {
 
-  public List<Sku> appliesTo();
-
-  public int evaluateTotal(Checkout cart);
+  public int evaluateTotal(Cart cart);
 
 }
