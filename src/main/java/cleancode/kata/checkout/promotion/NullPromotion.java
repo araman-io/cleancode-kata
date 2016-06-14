@@ -2,35 +2,38 @@ package cleancode.kata.checkout.promotion;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
-
 import cleancode.kata.checkout.Cart;
 import cleancode.kata.checkout.Sku;
 
 public class NullPromotion implements Promotion {
 
-  private Sku sku;
 
-  public NullPromotion(Sku sku) {
-    this.sku = sku;
-  }
+  public NullPromotion() {}
 
   @Override
   public int evaluateTotal(Cart cart) {
-    int result = sku.unitPrice() * cart.skuCount(sku);
-    cart.resetSkuCount(sku);
-    return result;
+    int total = cart.getSkuCountMap()//
+        .entrySet() //
+        .stream() //
+        .mapToInt(es -> {
+          Sku sku = es.getKey();
+          int result = sku.unitPrice() * es.getValue();
+          cart.resetSkuCount(sku);
+          return result;
+        })//
+        .sum();
+
+    return total;
   }
 
   @Override
   public List<Sku> appliesTo() {
-    return asList(sku);
+    throw new UnsupportedOperationException("applies to all pending items");
   }
 
   @Override
   public String toString() {
-    return "NullPromotion [sku=" + sku + "]";
+    return "NullPromotion []";
   }
-
 
 }

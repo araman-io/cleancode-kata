@@ -3,9 +3,7 @@ package cleancode.kata.checkout;
 import static cleancode.kata.checkout.Sku.valueOf;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static java.util.Arrays.asList;
 
@@ -43,13 +41,14 @@ public class Checkout {
 
   public int total() {
     int totalPrice = 0;
-    addNullPromotionsForSkusWithNoConfiguredPromotions();
 
     totalPrice = promotions.stream() //
         .mapToInt(p -> {
           return p.evaluateTotal(this.cart());
         }) //
         .sum();
+
+    totalPrice += new NullPromotion().evaluateTotal(this.cart());
 
     return totalPrice;
   }
@@ -61,18 +60,4 @@ public class Checkout {
   public List<Promotion> promotions() {
     return this.promotions;
   }
-
-  private void addNullPromotionsForSkusWithNoConfiguredPromotions() {
-    Set<Sku> cartSkus = this.cart.skuSet();
-    Set<Sku> promotionSkus = new HashSet<>();
-    this.promotions.forEach(p -> {
-      promotionSkus.addAll(p.appliesTo());
-    });
-
-    cartSkus.removeAll(promotionSkus);
-    cartSkus.forEach(s -> {
-      this.promotions.add(new NullPromotion(s));
-    });
-  }
-
 }
