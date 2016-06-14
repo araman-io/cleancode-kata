@@ -33,12 +33,6 @@ public class GetXYForZPromotionShould {
   }
 
   @Test
-  public void return_applicable_skus() throws Exception {
-    GetXYForZPromotion promotion = new GetXYForZPromotion(A, B, 65);
-    assertThat(promotion.appliesTo(), is(asList(A, B)));
-  }
-
-  @Test
   public void decrement_sku_count_for_both_skus_by_1() throws Exception {
     GetXYForZPromotion promotion = new GetXYForZPromotion(A, B, 65);
     Checkout checkout = new Checkout(promotion);

@@ -23,14 +23,6 @@ public class GetXForYPromotion implements Promotion {
     return asList(sku);
   }
 
-  public int thresholdCount() {
-    return thresholdCount;
-  }
-
-  public int offerPrice() {
-    return offerPrice;
-  }
-
   public int evaluateTotal(Cart cart) {
     int total = 0;
     if (cart.contains(sku)) {

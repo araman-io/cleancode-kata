@@ -24,11 +24,6 @@ public class NullPromotionShould {
     assertThat(p.evaluateTotal(checkout.cart()), is(250));
   }
 
-  @Test(expected = UnsupportedOperationException.class)
-  public void doesnt_apply_to_specific_sku() {
-    new NullPromotion().appliesTo();
-  }
-
   @Test
   public void totals_all_skus_and_reset_sku_count() throws Exception {
     Promotion p = new NullPromotion();
