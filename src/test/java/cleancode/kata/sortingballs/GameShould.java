@@ -27,5 +27,15 @@ public class GameShould {
     List<String> expected = asList("57");
     assertThat(game.result(), is(expected));
   }
+  
+  @Test
+  public void returnBallsInTheSameOrderWhenTheyAreDrawnInAscendingOrder() {
+    Game game = new Game();
+    game.draw("49");
+    game.draw("57");
+    List<String> expected = asList("49", "57");
+    assertThat(game.result(), is(expected));
+  }
+  
 
 }
