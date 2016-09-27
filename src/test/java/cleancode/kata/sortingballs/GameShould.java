@@ -1,5 +1,6 @@
 package cleancode.kata.sortingballs;
 
+import static cleancode.kata.sortingballs.Draw.of;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.util.ArrayList;
@@ -16,33 +17,39 @@ public class GameShould {
   @Test
   public void returnNoBallsWhenCreated() {
     Game game = new Game();
-    List<String> emptyList = new ArrayList<>();
+    List<Draw> emptyList = new ArrayList<>();
     assertThat(game.result(), is(emptyList));
   }
   
   @Test
   public void returnOneBallWhenOnlyOneBallHasBeenDrawn() {
     Game game = new Game();
-    game.draw("57");
-    List<String> expected = asList("57");
+    game.draw(of("57"));
+    
+    List<Draw> expected = asList(of("57"));
+    
     assertThat(game.result(), is(expected));
   }
   
   @Test
   public void returnBallsInTheSameOrderWhenTheyAreDrawnInAscendingOrder() {
     Game game = new Game();
-    game.draw("49");
-    game.draw("57");
-    List<String> expected = asList("49", "57");
+    game.draw(of("49"));
+    game.draw(of("57"));
+    
+    List<Draw> expected = asList(of("49"), of("57"));
+    
     assertThat(game.result(), is(expected));
   }
   
   @Test
   public void returnBallsInAscendingOrderWhenTheyAreNotDrawnInAscendingOrder() {
     Game game = new Game();
-    game.draw("45");
-    game.draw("24");
-    List<String> expected = asList("24", "45");
+    game.draw(of("45"));
+    game.draw(of("24"));
+    
+    List<Draw> expected = asList(of("24"), of("45"));
+    
     assertThat(game.result(), is(expected));
   }
   
