@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Game {
 
-  List<String> result = new ArrayList<>();
+  List<String> allDraws = new ArrayList<>();
 
-  public List<String> draws() {
-    return result;
+  public List<String> result() {
+    return allDraws;
   }
 
   public void draw(String string) {
-    result.add(string);
+    allDraws.add(string);
   }
 
 }

@@ -17,15 +17,15 @@ public class GameShould {
   public void returnNoBallsWhenCreated() {
     Game game = new Game();
     List<String> emptyList = new ArrayList<>();
-    assertThat(game.draws(), is(emptyList));
+    assertThat(game.result(), is(emptyList));
   }
   
   @Test
-  public void returnsOneBallWhenOneBallHasBeenDrawn() {
+  public void returnOneBallWhenOnlyOneBallHasBeenDrawn() {
     Game game = new Game();
     game.draw("57");
     List<String> expected = asList("57");
-    assertThat(game.draws(), is(expected));
+    assertThat(game.result(), is(expected));
   }
 
 }
