@@ -32,7 +32,7 @@ public class GameShould {
   }
   
   @Test
-  public void returnBallsInTheSameOrderWhenTheyAreDrawnInAscendingOrder() {
+  public void returnBallsInTheSameOrderWhen2BallsAreDrawnInAscendingOrder() {
     Game game = new Game();
     game.draw(of("49"));
     game.draw(of("57"));
@@ -43,7 +43,7 @@ public class GameShould {
   }
   
   @Test
-  public void returnBallsInAscendingOrderWhenTheyAreNotDrawnInAscendingOrder() {
+  public void returnBallsInAscendingOrderWhen2BallsAreDrawnInDescendingOrder() {
     Game game = new Game();
     game.draw(of("45"));
     game.draw(of("24"));
