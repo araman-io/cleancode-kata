@@ -11,7 +11,7 @@ public class Game {
 
   public List<Draw> result() {
     if (allDraws.size() == 2) {
-      if (allDraws.get(0).value() > allDraws.get(1).value()) {
+      if (allDraws.get(0).compareTo(allDraws.get(1)) > 0) {
         return asList(allDraws.get(1), allDraws.get(0));
       }
     }
