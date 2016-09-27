@@ -3,18 +3,14 @@ package cleancode.kata.sortingballs;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
+import static java.util.Collections.sort;
 
 public class Game {
 
   List<Draw> allDraws = new ArrayList<>();
 
   public List<Draw> result() {
-    if (allDraws.size() == 2) {
-      if (allDraws.get(0).compareTo(allDraws.get(1)) > 0) {
-        return asList(allDraws.get(1), allDraws.get(0));
-      }
-    }
+    sort(allDraws);
     return allDraws;
   }
 
