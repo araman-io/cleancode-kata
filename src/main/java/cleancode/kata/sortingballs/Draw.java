@@ -36,4 +36,9 @@ public class Draw implements Comparable<Draw> {
     return value() - otherDraw.value();
   }
 
+  @Override
+  public String toString() {
+    return "Draw [number=" + number + "]";
+  }
+
 }
