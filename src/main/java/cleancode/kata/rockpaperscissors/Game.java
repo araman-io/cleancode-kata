@@ -1,19 +1,11 @@
 package cleancode.kata.rockpaperscissors;
 
-import static cleancode.kata.rockpaperscissors.GameOption.PAPER;
-import static cleancode.kata.rockpaperscissors.GameOption.ROCK;
 import static cleancode.kata.rockpaperscissors.GameOption.valueOf;
 
 public class Game {
 
   public GameOption winnerOf(GameOption firstChoice, GameOption secondChoice) {
-
-    if ((firstChoice == ROCK || secondChoice == ROCK)
-        && (firstChoice == PAPER || secondChoice == PAPER)) {
-      return PAPER;
-    } else {
-      return ROCK;
-    }
+    return firstChoice.winsOver() == secondChoice ? firstChoice : secondChoice;
   }
 
   // method for backward compatibility
