@@ -1,5 +1,8 @@
 package cleancode.kata.rockpaperscissors;
 
+import static cleancode.kata.rockpaperscissors.GameOption.PAPER;
+import static cleancode.kata.rockpaperscissors.GameOption.SCISSORS;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -28,6 +31,12 @@ public class GameShould {
   public void rockWinsOverScissorsIrrespectiveOfParameterOrder() {
     Game g = new Game();
     assertEquals("ROCK", g.winnerOf("SCISSORS", "ROCK"));
+  }
+
+  @Test
+  public void scissorsWinsOverPaper() {
+    Game g = new Game();
+    assertEquals(SCISSORS, g.winnerOf(PAPER, SCISSORS));
   }
 
 }
