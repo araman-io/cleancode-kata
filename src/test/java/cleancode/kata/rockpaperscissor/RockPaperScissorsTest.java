@@ -15,5 +15,11 @@ public class RockPaperScissorsTest {
   public void scissorsWinsOverPins() {
     assertEquals("SCISSORS", RockPaperScissors.determineWinner("PAPER", "SCISSORS"));
   }
+  
+  @Test
+  public void paperWinsOverRockPins() {
+    assertEquals("PAPER", RockPaperScissors.determineWinner("PAPER", "ROCK"));
+  }
+
 
 }
