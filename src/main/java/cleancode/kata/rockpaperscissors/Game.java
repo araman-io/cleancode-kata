@@ -1,15 +1,24 @@
 package cleancode.kata.rockpaperscissors;
 
+import static cleancode.kata.rockpaperscissors.GameOption.PAPER;
+import static cleancode.kata.rockpaperscissors.GameOption.ROCK;
+import static cleancode.kata.rockpaperscissors.GameOption.valueOf;
+
 public class Game {
 
-  public String winnerOf(String firstChoice, String secondChoice) {
+  public GameOption winnerOf(GameOption firstChoice, GameOption secondChoice) {
 
-    if ((firstChoice.equals("ROCK") || secondChoice.equals("ROCK"))
-        && (firstChoice.equals("PAPER") || secondChoice.equals("PAPER"))) {
-      return "PAPER";
+    if ((firstChoice == ROCK || secondChoice == ROCK)
+        && (firstChoice == PAPER || secondChoice == PAPER)) {
+      return PAPER;
     } else {
-      return "ROCK";
+      return ROCK;
     }
+  }
+
+  // method for backward compatibility
+  public String winnerOf(String string, String string2) {
+    return this.winnerOf(valueOf(string), valueOf(string2)).name();
   }
 
 }
