@@ -11,6 +11,11 @@ public class GameShould {
     Game g = new Game();
     assertEquals("ROCK", g.winnerOf("ROCK", "SCISSORS"));
   }
-  
+
+  @Test
+  public void paperWinsOverRock() {
+    Game g = new Game();
+    assertEquals("PAPER", g.winnerOf("ROCK", "PAPER"));
+  }
 
 }
