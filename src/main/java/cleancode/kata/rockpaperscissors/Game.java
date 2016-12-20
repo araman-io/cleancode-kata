@@ -2,10 +2,10 @@ package cleancode.kata.rockpaperscissors;
 
 public class Game {
 
-  public String winnerOf(String string, String string2) {
+  public String winnerOf(String firstChoice, String secondChoice) {
 
-    if ((string.equals("ROCK") || string2.equals("ROCK"))
-        && (string.equals("PAPER") || string2.equals("PAPER"))) {
+    if ((firstChoice.equals("ROCK") || secondChoice.equals("ROCK"))
+        && (firstChoice.equals("PAPER") || secondChoice.equals("PAPER"))) {
       return "PAPER";
     } else {
       return "ROCK";
