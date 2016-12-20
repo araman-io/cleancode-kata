@@ -23,5 +23,11 @@ public class GameShould {
     Game g = new Game();
     assertEquals("PAPER", g.winnerOf("PAPER", "ROCK"));
   }
+  
+  @Test
+  public void rockWinsOverScissorsIrrespectiveOfParameterOrder() {
+    Game g = new Game();
+    assertEquals("ROCK", g.winnerOf("SCISSORS", "ROCK"));
+  }
 
 }
